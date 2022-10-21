@@ -8,6 +8,6 @@
 
 <style scoped>
 	.btn {
-		@apply min-w-max bg-darkblue hover:bg-lightblue text-lightsecondary text-lg rounded-lg py-3 px-4 cursor-pointer transition-all duration-300;
+		@apply min-w-max bg-darkblue hover:bg-lightblue text-lightsecondary text-sm font-bold uppercase rounded-lg py-3 px-4 cursor-pointer transition-all duration-300;
 	}
 </style>
