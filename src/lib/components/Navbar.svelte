@@ -11,7 +11,7 @@
 
 <style scoped>
 	nav {
-		@apply w-full min-w-[375px] inline-grid grid-cols-2 lg:grid-cols-3 place-items-center gap-4 px-4 lg:px-14 py-2 bg-lightsecondary text-darkblue shadow-md;
+		@apply w-full min-w-[375px] inline-grid grid-cols-2 lg:grid-cols-3 place-items-center gap-4 px-4 lg:px-14 py-2 bg-lightsecondary text-darkblue shadow;
 	}
 
 	nav a {
