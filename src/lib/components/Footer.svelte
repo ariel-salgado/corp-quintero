@@ -28,10 +28,15 @@
 
 	<aside>
 		<a href="http://www.deportesquintero.cl/">
-			<img width="250" src="/corp_logo.webp" alt="Corporación municipal de deportes Quintero" />
+			<img
+				width="250"
+				height="105"
+				src="/corp_logo.webp"
+				alt="Corporación municipal de deportes Quintero"
+			/>
 		</a>
 		<a href="https://www.muniquintero.cl/">
-			<img width="110" src="/quintero.webp" alt="Municipalidad de Quintero" />
+			<img width="110" height="100" src="/quintero.webp" alt="Municipalidad de Quintero" />
 		</a>
 	</aside>
 </footer>

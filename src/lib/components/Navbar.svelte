@@ -4,7 +4,12 @@
 
 <nav>
 	<a href="/">
-		<img src="/corp_logo.webp" width="350" alt="Corporación Municipal de Deportes Quintero" />
+		<img
+			src="/corp_logo.webp"
+			width="340"
+			height="144"
+			alt="Corporación Municipal de Deportes Quintero"
+		/>
 	</a>
 	<Button class="justify-self-end lg:justify-self-center" to="/login" text="Iniciar Sesión" />
 </nav>
