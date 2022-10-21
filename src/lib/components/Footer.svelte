@@ -38,7 +38,7 @@
 
 <style scoped>
 	h2 {
-		@apply font-extrabold uppercase mb-4;
+		@apply font-extrabold uppercase mb-4 min-w-max;
 	}
 
 	footer {
@@ -58,7 +58,7 @@
 	}
 
 	ul li {
-		@apply py-1;
+		@apply py-1 min-w-max;
 	}
 
 	li a {
