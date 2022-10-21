@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Colors */
+    --light-primary: 240 240 255;
+    --light-secondary: 248 248 255;
+    --dark-primary: 22 38 63;
+    --dark-secondary: 29 46 74;
+    --orange-neutral: 210 103 69;
+    --orange-light: 219 133 107;
+    --orange-dark: 197 83 48;
+    --green-neutral: 117 170 92;
+    --green-light: 141 185 121;
+    --green-dark: 99 147 77;
+    --yellow-neutral: 224 154 80;
+    --yellow-light: 231 175 116;
+    --yellow-dark: 220 135 46;
+    --blue-neutral: 73 131 164;
+    --blue-light: 100 154 185;
+    --blue-dark: 63 112 189;
+  }
+
+	* {
+		@apply box-border font-josefin;
+	}
+
+	body {
+    @apply bg-lightprimary text-darkprimary scroll-smooth;
+	}
+}
