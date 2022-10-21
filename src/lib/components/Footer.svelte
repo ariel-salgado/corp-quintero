@@ -42,7 +42,7 @@
 	}
 
 	footer {
-		@apply w-full bg-lightsecondary text-darkblue flex justify-between flex-col md:flex-row px-6 md:px-14 py-10 shadow-inner;
+		@apply w-full bg-lightsecondary text-darkblue text-xs lg:text-sm flex justify-between flex-col md:flex-row px-6 md:px-14 py-10 shadow-inner;
 	}
 
 	footer > div {
@@ -54,7 +54,7 @@
 	}
 
 	div ul {
-		@apply uppercase text-sm;
+		@apply uppercase;
 	}
 
 	ul li {
