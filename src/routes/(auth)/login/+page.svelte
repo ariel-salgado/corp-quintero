@@ -2,8 +2,11 @@
 	import Button from '$lib/components/Button.svelte';
 	import Input from '$lib/components/Input.svelte';
 
+	let user: string | null = null;
+	let password: string | null = null;
+
 	function login() {
-		alert('login');
+		alert(`user: ${user}, password: ${password}`);
 	}
 </script>
 
@@ -16,10 +19,10 @@
 	<a href="/">
 		<img src="corp_logo.webp" width="350" alt="Corporación Municipal de Deportes Quintero" />
 	</a>
-	<form>
-		<Input label="Usuario" ph="Ingrese Usuario" />
-		<Input label="Contraseña" ph="Ingrese Contraseña" />
-		<Button text="Ingresar" action={login} />
+	<form on:submit|preventDefault={login}>
+		<Input label="Usuario" ph="Ingrese Usuario" bind:value={user} />
+		<Input label="Contraseña" ph="Ingrese Contraseña" bind:value={password} />
+		<Button text="Ingresar" />
 	</form>
 </section>
 
