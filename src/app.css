@@ -30,4 +30,8 @@
 	body {
     @apply bg-lightprimary text-darkprimary scroll-smooth;
 	}
+
+  a {
+    @apply focus:outline-none;
+  }
 }
