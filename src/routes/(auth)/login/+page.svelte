@@ -49,7 +49,7 @@
 	}
 
 	form div {
-		@apply w-full;
+		@apply w-full text-end;
 	}
 
 	span {
