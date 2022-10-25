@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let label: string;
+	export let name: string | undefined = undefined;
 	export let ph: string | undefined = undefined;
 	export let value: string | null = null;
 </script>
@@ -7,7 +8,7 @@
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <div>
 	<label>{label}</label>
-	<input placeholder={ph} bind:value />
+	<input {name} placeholder={ph} bind:value />
 </div>
 
 <style scoped>
