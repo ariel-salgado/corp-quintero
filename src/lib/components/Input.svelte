@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let label: string;
 	export let ph: string | undefined = undefined;
-	export let value: string | undefined = undefined;
+	export let value: string | null = null;
 </script>
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
