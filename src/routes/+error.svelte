@@ -1,4 +1,10 @@
-<section>
+<script>
+	import Navbar from '$lib/components/Navbar.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+</script>
+
+<Navbar />
+<main>
 	<h1>Página no encontrada</h1>
 	<p>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -7,10 +13,11 @@
 		voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
 		non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</p>
-</section>
+</main>
+<Footer />
 
 <style scoped>
-	section {
+	main {
 		@apply h-screen grid place-items-center text-center text-darkblue bg-lightsecondary m-8 p-36 rounded-lg shadow-md;
 	}
 
