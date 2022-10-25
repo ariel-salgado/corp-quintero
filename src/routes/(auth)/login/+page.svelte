@@ -1,6 +1,9 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import Button from '$lib/components/Button.svelte';
 	import Input from '$lib/components/Input.svelte';
+
+	export let form: any;
 </script>
 
 <svelte:head>
@@ -13,9 +16,21 @@
 		<img src="corp_logo.webp" width="350" alt="Corporación Municipal de Deportes Quintero" />
 	</a>
 
-	<form method="post">
-		<Input name="username" label="Usuario" ph="Ingrese Usuario" />
-		<Input name="password" label="Contraseña" ph="Ingrese Contraseña" />
+	<form method="post" use:enhance>
+		<div>
+			<Input name="username" label="Usuario" ph="Ingrese Usuario" />
+			{#if form?.errors?.username}
+				<span>{form?.errors.username[0]}</span>
+			{/if}
+		</div>
+
+		<div>
+			<Input name="password" label="Contraseña" ph="Ingrese Contraseña" />
+			{#if form?.errors?.password}
+				<span>{form?.errors.password[0]}</span>
+			{/if}
+		</div>
+
 		<Button text="Ingresar" />
 	</form>
 </section>
@@ -29,7 +44,15 @@
 		@apply w-full grid place-items-center gap-10 p-16;
 	}
 
-	section form {
+	form {
 		@apply w-full grid place-items-center text-center gap-8;
+	}
+
+	form div {
+		@apply w-full;
+	}
+
+	span {
+		@apply text-neutralorange text-sm;
 	}
 </style>
