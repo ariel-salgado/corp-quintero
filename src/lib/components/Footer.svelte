@@ -43,11 +43,11 @@
 
 <style scoped>
 	h2 {
-		@apply font-extrabold uppercase mb-4 min-w-max;
+		@apply font-bold uppercase mb-4 min-w-max;
 	}
 
 	footer {
-		@apply w-full bg-lightsecondary text-darkblue text-xs lg:text-sm flex justify-between flex-col md:flex-row px-6 md:px-14 py-10 shadow-inner;
+		@apply w-full min-w-[375px] bg-lightsecondary text-darkblue text-xs lg:text-sm flex justify-between flex-col md:flex-row px-6 md:px-14 py-10 shadow-inner;
 	}
 
 	footer > div {
@@ -71,14 +71,14 @@
 	}
 
 	aside {
-		@apply flex flex-col sm:flex-row md:flex-col lg:flex-row place-items-center justify-around w-full md:w-2/5 gap-12 mt-12 md:mt-0;
+		@apply flex flex-row md:flex-col lg:flex-row place-items-center justify-around w-full md:w-2/5 gap-12 mt-12 md:mt-0;
 	}
 
 	aside a:first-child {
-		@apply min-w-[250px];
+		@apply w-[180px] sm:w-[250px];
 	}
 
 	aside a:last-child {
-		@apply min-w-[110px];
+		@apply w-[80px] sm:w-[110px];
 	}
 </style>

@@ -5,7 +5,7 @@
 </script>
 
 <Navbar />
-<main class="h-screen">
+<main>
 	<slot />
 </main>
 <Footer />

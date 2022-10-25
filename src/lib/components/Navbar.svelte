@@ -11,12 +11,18 @@
 			alt="Corporación Municipal de Deportes Quintero"
 		/>
 	</a>
-	<Button class="justify-self-end lg:justify-self-center" to="/login" text="Iniciar Sesión" />
+	<div>
+		<Button to="/login" text="Iniciar Sesión" />
+	</div>
 </nav>
 
 <style scoped>
 	nav {
 		@apply w-full min-w-[375px] inline-grid grid-cols-2 lg:grid-cols-3 place-items-center gap-4 px-4 lg:px-14 py-2 bg-lightsecondary text-darkblue shadow;
+	}
+
+	nav div {
+		@apply justify-self-end lg:justify-self-center;
 	}
 
 	nav a {
