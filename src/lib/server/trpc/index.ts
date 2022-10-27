@@ -1,8 +1,6 @@
-import type { inferAsyncReturnType } from '@trpc/server';
-import * as trpc from '@trpc/server';
+import { createRouter } from '$lib/server/createRouter';
+import { login } from '$lib/server/trpc/login';
 
-export const createContext = async () => ({});
+export const apiRouter = createRouter().merge('login', login);
 
-export const router = trpc.router<inferAsyncReturnType<typeof createContext>>();
-
-export type Router = typeof router;
+export type ApiRouter = typeof apiRouter;
