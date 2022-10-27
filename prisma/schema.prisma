@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model categoria_evento {
+  id_evento Int
+  categoria String @db.VarChar(50)
+  evento    evento @relation(fields: [id_evento], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "categoria_evento_ibfk_1")
+
+  @@id([id_evento, categoria])
+}
+
+model evento {
+  id               Int                @id @default(autoincrement())
+  nombre           String             @db.VarChar(100)
+  tipo             evento_tipo
+  cupo             Int
+  fecha_inicio     DateTime           @db.Date
+  fecha_termino    DateTime           @db.Date
+  hora_inicio      DateTime           @db.Time(0)
+  hora_termino     DateTime           @db.Time(0)
+  direccion        String             @db.VarChar(100)
+  descripcion      String?            @db.Text
+  requisitos       String?            @db.Text
+  estado           evento_estado      @default(Activo)
+  categoria_evento categoria_evento[]
+  inscribe_evento  inscribe_evento[]
+}
+
+model inscribe_evento {
+  rut       String   @db.VarChar(13)
+  id_evento Int
+  fecha     DateTime @db.Date
+  categoria String   @db.VarChar(50)
+  persona   persona  @relation(fields: [rut], references: [rut], onDelete: NoAction, onUpdate: NoAction, map: "inscribe_evento_ibfk_1")
+  evento    evento   @relation(fields: [id_evento], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "inscribe_evento_ibfk_2")
+
+  @@id([rut, id_evento])
+  @@index([id_evento], map: "id_evento")
+}
+
+model persona {
+  rut               String            @id @db.VarChar(13)
+  nombres           String            @db.VarChar(50)
+  apellidos         String            @db.VarChar(50)
+  telefono_personal Int
+  telefono_contacto Int?
+  correo            String            @db.VarChar(50)
+  fecha_nacimiento  DateTime          @db.Date
+  direccion         String            @db.VarChar(100)
+  sexo              persona_sexo
+  talla             persona_talla
+  inscribe_evento   inscribe_evento[]
+  usuario           usuario?
+}
+
+model usuario {
+  rut        String         @id @db.VarChar(13)
+  nombre     String         @db.VarChar(100)
+  contrasena String         @db.VarChar(100)
+  estado     usuario_estado @default(Activo)
+  persona    persona        @relation(fields: [rut], references: [rut], onDelete: NoAction, onUpdate: NoAction, map: "usuario_ibfk_1")
+}
+
+enum evento_tipo {
+  Abierto
+  Cerrado
+}
+
+enum usuario_estado {
+  Activo
+  Inactivo
+}
+
+enum persona_sexo {
+  M
+  F
+  N_A @map("N/A")
+}
+
+enum persona_talla {
+  S
+  M
+  L
+  XL
+  XXL
+}
+
+enum evento_estado {
+  Activo
+  Inactivo
+}
