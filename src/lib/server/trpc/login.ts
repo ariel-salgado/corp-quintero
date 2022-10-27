@@ -8,6 +8,17 @@ export const login = createRouter().query('', {
 		contrasena: z.string()
 	}),
 	resolve: async ({ input: { nombre, contrasena } }) => {
+		return `Hello ${nombre} your password is ${contrasena}`;
+	}
+});
+
+/*
+export const login = createRouter().query('', {
+	input: z.object({
+		nombre: z.string(),
+		contrasena: z.string()
+	}),
+	resolve: async ({ input: { nombre, contrasena } }) => {
 		prismaClient.usuario.findUnique({
 			where: {
 				nombre: nombre,
@@ -17,3 +28,4 @@ export const login = createRouter().query('', {
 		});
 	}
 });
+*/
