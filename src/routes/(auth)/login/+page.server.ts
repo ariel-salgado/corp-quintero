@@ -1,7 +1,7 @@
 export const prerender = false;
 
 import type { Actions } from './$types';
-import { LoginSchema } from 'src/utils/zodValidations';
+import { LoginSchema } from '$utils/zodValidations';
 import { ZodError } from 'zod';
 
 export const actions: Actions = {
@@ -13,7 +13,7 @@ export const actions: Actions = {
 		} catch (err: unknown) {
 			if (err instanceof ZodError) {
 				const { fieldErrors: errors } = err.flatten();
-				const { password, ...rest } = formData;
+				const { username, password, ...rest } = formData;
 				return {
 					data: rest,
 					errors
