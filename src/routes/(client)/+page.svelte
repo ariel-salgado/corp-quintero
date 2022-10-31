@@ -1,20 +1,17 @@
 <script lang="ts">
-	import trpc from '$lib/trpc';
+	import type { PageData } from './$types';
 
-	const load = async () => {
-		const message = await trpc().query('login', { nombre: 'foo', contrasena: 'bar' });
-		return message;
-	};
+	export let data: PageData;
+	const { message } = data;
 </script>
 
 <svelte:head>
 	<title>Corporación Municipal de Deportes Quintero</title>
+	<meta name="description" content="" />
 </svelte:head>
 
-{#await load()}
-	Loading...
-{:then value}
-	{value}
-{:catch error}
-	{error}
-{/await}
+{#if message}
+	<h1>{message}</h1>
+{:else}
+	<h1>Oops!</h1>
+{/if}
