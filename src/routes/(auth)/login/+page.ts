@@ -1,7 +1,7 @@
 export const prerender = false;
 
 import type { Actions } from './$types';
-import { LoginSchema } from '$utils/zodValidations';
+import { LoginSchema } from '$src/utils/zod/validations';
 import { ZodError } from 'zod';
 
 export const actions: Actions = {
