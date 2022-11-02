@@ -11,6 +11,4 @@
 	<meta name="description" content="Eventos de la Corporación Municipal de Deportes Quintero" />
 </svelte:head>
 
-<main>
-	<Eventos {eventos} />
-</main>
+<Eventos {eventos} />
