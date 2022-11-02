@@ -13,6 +13,6 @@
 
 <style scoped>
 	section {
-		@apply grid py-6 lg:py-12 px-6 lg:px-16 gap-y-8 lg:gap-y-12;
+		@apply grid p-6 lg:py-12 lg:px-16 gap-y-8 lg:gap-y-12;
 	}
 </style>
