@@ -1,17 +1,16 @@
 <script lang="ts">
+	import Eventos from '$lib/components/Eventos.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { message } = data;
+	const { eventos } = data;
 </script>
 
 <svelte:head>
 	<title>Corporación Municipal de Deportes Quintero</title>
-	<meta name="description" content="" />
+	<meta name="description" content="Eventos de la Corporación Municipal de Deportes Quintero" />
 </svelte:head>
 
-{#if message}
-	<h1>{message}</h1>
-{:else}
-	<h1>Oops!</h1>
-{/if}
+<main>
+	<Eventos {eventos} />
+</main>
