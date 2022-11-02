@@ -1,6 +1,6 @@
 import { createRouter } from '$lib/server/createRouter';
-import { login } from '$lib/server/trpc/login';
+import { eventos } from '$lib/server/trpc/eventos';
 
-export const router = createRouter().merge('login', login);
+export const router = createRouter().merge('eventos', eventos);
 
 export type ApiRouter = typeof router;
