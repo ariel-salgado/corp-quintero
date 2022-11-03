@@ -1,23 +1,15 @@
+import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 import trpc from '$lib/trpc';
 
 export const load: PageLoad = async ({ params, fetch }) => {
-	if (!Number(params.slug))
-		return {
-			status: 404,
-			error: new Error('Not found')
-		};
+	if (!Number(params.slug)) throw error(404, 'Not Found');
 
 	const evento = await trpc(fetch).query('eventos:one', { id: Number(params.slug) });
 
-	if (evento)
-		return {
-			status: 200,
-			evento: evento
-		};
+	if (!evento) throw error(404, 'Not Found');
 
 	return {
-		status: 404,
-		error: new Error('Not found')
+		evento: evento
 	};
 };
