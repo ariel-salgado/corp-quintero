@@ -50,7 +50,7 @@
 
 <style scoped>
 	picture {
-		@apply flex flex-wrap gap-x-6 mb-4 justify-between;
+		@apply flex flex-wrap gap-x-6 mb-4 justify-between md:justify-start;
 	}
 
 	div {
