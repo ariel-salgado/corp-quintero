@@ -8,9 +8,3 @@
 	<slot />
 </main>
 <Footer />
-
-<style scoped>
-	main {
-		@apply min-h-screen;
-	}
-</style>
