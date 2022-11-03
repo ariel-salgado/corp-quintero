@@ -3,7 +3,7 @@ import prismaClient from '$lib/server/prismaClient';
 import { z } from 'zod';
 
 export const eventos = createRouter()
-	.query(':all-actives', {
+	.query(':all', {
 		resolve: async () => {
 			return prismaClient.evento.findMany({
 				where: {
