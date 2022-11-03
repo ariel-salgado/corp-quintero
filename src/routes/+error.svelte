@@ -18,10 +18,10 @@
 
 <style scoped>
 	main {
-		@apply h-screen grid place-items-center text-center text-darkblue bg-lightsecondary m-8 p-36 rounded-lg shadow-md;
+		@apply h-screen flex flex-col place-items-center justify-evenly text-center text-darkblue bg-lightsecondary rounded-lg shadow-md gap-6 p-6 m-6;
 	}
 
 	h1 {
-		@apply font-bold text-6xl;
+		@apply font-bold text-5xl;
 	}
 </style>
