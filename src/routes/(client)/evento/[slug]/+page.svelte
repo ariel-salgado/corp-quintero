@@ -8,7 +8,7 @@
 	export let data: PageData;
 	const { evento } = data;
 
-	if (!evento) goto('/');
+	if (!evento || evento?.estado === 'Inactivo') goto('/');
 
 	const fecha_termino = new Date(evento!.fecha_termino);
 	const hora_inicio = new Date(evento!.hora_inicio);
