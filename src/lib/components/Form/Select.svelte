@@ -1,0 +1,32 @@
+<script lang="ts">
+	export let label: string;
+	export let name: string | undefined = undefined;
+	export let ph: string | undefined = undefined;
+	export let value: string | null | undefined = undefined;
+	export let options: {}[];
+</script>
+
+<!-- svelte-ignore a11y-label-has-associated-control -->
+<div>
+	<label>{label}</label>
+	<select {name} bind:value>
+		<option selected disabled>{ph}</option>
+		{#each options as option, i}
+			<option value={i}>{option}</option>
+		{/each}
+	</select>
+</div>
+
+<style scoped>
+	div {
+		@apply w-full grid gap-2 text-left;
+	}
+
+	label {
+		@apply text-sm font-medium text-gray-700;
+	}
+
+	select {
+		@apply bg-lightsecondary text-darksecondary text-xs lg:text-sm rounded-lg border border-darkblue focus:outline-none py-2 px-4;
+	}
+</style>
