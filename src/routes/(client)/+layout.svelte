@@ -8,3 +8,9 @@
 	<slot />
 </main>
 <Footer />
+
+<style scoped>
+	main {
+		@apply min-w-[375px];
+	}
+</style>
