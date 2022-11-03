@@ -13,12 +13,12 @@ module.exports = {
 				//Orange
 				neutralorange: 'rgb(var(--orange-neutral) / <alpha-value>)',
 				lightorange: 'rgb(var(--orange-light) / <alpha-value>)',
-				darkorange: 'rgb(var(--orange-dark;) / <alpha-value>)',
+				darkorange: 'rgb(var(--orange-dark) / <alpha-value>)',
 
 				//Green
 				neutralgreen: 'rgb(var(--green-neutral) / <alpha-value>)',
 				lightgreen: 'rgb(var(--green-light) / <alpha-value>)',
-				darkgreen: 'rgb(var(--green-dark;) / <alpha-value>)',
+				darkgreen: 'rgb(var(--green-dark) / <alpha-value>)',
 
 				//Yellow
 				neutralyellow: 'rgb(var(--yellow-neutral) / <alpha-value>)',
