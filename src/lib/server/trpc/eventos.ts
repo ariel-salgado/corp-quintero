@@ -58,6 +58,7 @@ export const eventos = createRouter()
 				},
 				select: {
 					id: true,
+					nombre: true,
 					categoria_evento: {
 						select: {
 							categoria: true
