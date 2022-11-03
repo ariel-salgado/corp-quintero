@@ -46,4 +46,24 @@ export const eventos = createRouter()
 				}
 			});
 		}
+	})
+	.query(':category', {
+		input: z.object({
+			id: z.number()
+		}),
+		resolve: async ({ input }) => {
+			return prismaClient.evento.findUnique({
+				where: {
+					id: input.id
+				},
+				select: {
+					id: true,
+					categoria_evento: {
+						select: {
+							categoria: true
+						}
+					}
+				}
+			});
+		}
 	});
