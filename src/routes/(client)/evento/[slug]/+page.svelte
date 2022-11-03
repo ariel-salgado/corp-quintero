@@ -47,7 +47,7 @@
 
 <style scoped>
 	section {
-		@apply min-w-[350px] p-6 lg:py-12 lg:px-16;
+		@apply p-6 lg:py-12 lg:px-16;
 	}
 
 	section > div {
