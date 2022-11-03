@@ -1,11 +1,14 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { goto } from '$app/navigation';
 	import Button from '$lib/components/Button.svelte';
 	import Badges from '$lib/components/Badges.svelte';
 	import EventoDetails from '$src/lib/components/EventoDetails.svelte';
-	import { categoria_eventoZod } from '$src/utils/zod/schema';
+
 	export let data: PageData;
 	const { evento } = data;
+
+	if (!evento) goto('/');
 
 	const fecha_termino = new Date(evento!.fecha_termino);
 	const hora_inicio = new Date(evento!.hora_inicio);
