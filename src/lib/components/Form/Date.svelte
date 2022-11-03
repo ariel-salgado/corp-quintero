@@ -13,14 +13,14 @@
 
 <style scoped>
 	div {
-		@apply w-full grid gap-2 text-left;
+		@apply w-full grid text-left;
 	}
 
 	label {
-		@apply text-sm font-medium text-gray-700;
+		@apply text-sm font-medium text-gray-700 mb-1;
 	}
 
 	input {
-		@apply bg-lightsecondary text-darksecondary text-xs lg:text-sm rounded-lg border border-darkblue focus:outline-none py-2 px-4;
+		@apply h-[34px] bg-lightsecondary text-darksecondary text-xs lg:text-sm rounded-lg border border-darkblue focus:outline-none p-2;
 	}
 </style>
