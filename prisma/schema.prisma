@@ -27,13 +27,14 @@ model evento {
   direccion        String             @db.VarChar(100)
   descripcion      String?            @db.Text
   requisitos       String?            @db.Text
+  poleras          Boolean            @default(false)
   estado           evento_estado      @default(Activo)
   categoria_evento categoria_evento[]
   inscribe_evento  inscribe_evento[]
 }
 
 model inscribe_evento {
-  rut       String   @db.VarChar(13)
+  rut       String   @db.VarChar(12)
   id_evento Int
   fecha     DateTime @db.Date
   categoria String   @db.VarChar(50)
@@ -45,7 +46,7 @@ model inscribe_evento {
 }
 
 model persona {
-  rut               String            @id @db.VarChar(13)
+  rut               String            @id @db.VarChar(12)
   nombres           String            @db.VarChar(50)
   apellidos         String            @db.VarChar(50)
   telefono_personal Int
@@ -60,7 +61,7 @@ model persona {
 }
 
 model usuario {
-  rut        String         @id @db.VarChar(13)
+  rut        String         @id @db.VarChar(12)
   nombre     String         @db.VarChar(100)
   contrasena String         @db.VarChar(100)
   estado     usuario_estado @default(Activo)

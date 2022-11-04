@@ -148,6 +148,7 @@ const mockEvento: evento[] = [
 		direccion: 'Calle falsa 123',
 		descripcion: 'Descripcion del evento 1',
 		requisitos: 'Requisitos del evento 1',
+		poleras: true,
 		estado: 'Activo'
 	},
 	{
@@ -162,6 +163,7 @@ const mockEvento: evento[] = [
 		direccion: 'Calle falsa 123',
 		descripcion: 'Descripcion del evento 2',
 		requisitos: 'Requisitos del evento 2',
+		poleras: true,
 		estado: 'Activo'
 	},
 	{
@@ -176,12 +178,13 @@ const mockEvento: evento[] = [
 		direccion: 'Calle falsa 123',
 		descripcion: 'Descripcion del evento 3',
 		requisitos: 'Requisitos del evento 3',
+		poleras: false,
 		estado: 'Activo'
 	},
 	{
 		id: 4,
 		nombre: 'Evento 4',
-		tipo: 'Abierto',
+		tipo: 'Cerrado',
 		cupo: 10,
 		fecha_inicio: new Date('2022-11-01'),
 		fecha_termino: new Date('2022-11-02'),
@@ -190,12 +193,13 @@ const mockEvento: evento[] = [
 		direccion: 'Calle falsa 123',
 		descripcion: 'Descripcion del evento 4',
 		requisitos: 'Requisitos del evento 4',
+		poleras: false,
 		estado: 'Activo'
 	},
 	{
 		id: 5,
 		nombre: 'Evento 5',
-		tipo: 'Abierto',
+		tipo: 'Cerrado',
 		cupo: 10,
 		fecha_inicio: new Date('2022-11-01'),
 		fecha_termino: new Date('2022-11-02'),
@@ -204,6 +208,7 @@ const mockEvento: evento[] = [
 		direccion: 'Calle falsa 123',
 		descripcion: 'Descripcion del evento 5',
 		requisitos: 'Requisitos del evento 5',
+		poleras: false,
 		estado: 'Activo'
 	}
 ];
