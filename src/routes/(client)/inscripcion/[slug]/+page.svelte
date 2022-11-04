@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData, ActionData } from './$types';
 	import { goto } from '$app/navigation';
-	import { persona_sexo } from '@prisma/client';
+	import { persona_sexo, persona_talla } from '@prisma/client';
 	import Input from '$src/lib/components/Form/Input.svelte';
 	import Select from '$src/lib/components/Form/Select.svelte';
 	import Date from '$src/lib/components/Form/Date.svelte';
@@ -115,6 +115,20 @@
 				<span>* {form?.errors.direccion[0]}</span>
 			{/if}
 		</div>
+
+		{#if categorias.poleras}
+			<div>
+				<Select
+					label="Talla de polera"
+					name="talla_polera"
+					ph="Seleccione su talla de polera"
+					options={Object.values(persona_talla)}
+				/>
+				{#if form?.errors?.talla_polera}
+					<span>* {form?.errors.talla_polera[0]}</span>
+				{/if}
+			</div>
+		{/if}
 
 		<div>
 			<Button text="Volver" to={`/evento/${categorias.id}`} />
