@@ -67,5 +67,5 @@ export const InscriptionSchema = z.object({
 		.min(1, { message: 'Debe ingresar una dirección' })
 		.trim(),
 	sexo: z.nativeEnum(persona_sexo, { required_error: 'Debe seleccionar su sexo' }),
-	talla: z.nativeEnum(persona_talla)
+	talla_polera: z.nativeEnum(persona_talla, { required_error: 'Debe seleccionar su talla' })
 });
