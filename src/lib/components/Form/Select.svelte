@@ -11,8 +11,8 @@
 	<label>{label}</label>
 	<select {name} bind:value>
 		<option selected disabled>{ph}</option>
-		{#each options as option, i}
-			<option value={i}>{option}</option>
+		{#each options as option}
+			<option value={option}>{option}</option>
 		{/each}
 	</select>
 </div>
