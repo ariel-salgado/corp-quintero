@@ -2,7 +2,7 @@
 	import type { evento } from '@prisma/client';
 	import Button from '$lib/components/Button.svelte';
 
-	export let evento: evento;
+	export let evento: Partial<evento>;
 </script>
 
 <article>

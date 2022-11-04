@@ -2,7 +2,7 @@
 	import type { evento } from '@prisma/client';
 	import Card from '$lib/components/Card.svelte';
 
-	export let eventos: evento[];
+	export let eventos: Partial<evento>[];
 </script>
 
 <section>
