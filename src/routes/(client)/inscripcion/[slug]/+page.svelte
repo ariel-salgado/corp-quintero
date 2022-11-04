@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { PageData, ActionData } from './$types';
 	import { goto } from '$app/navigation';
 	import { persona_sexo } from '@prisma/client';
 	import Input from '$src/lib/components/Form/Input.svelte';
@@ -8,6 +8,7 @@
 	import Button from '$lib/components/Button.svelte';
 
 	export let data: PageData;
+	export let form: ActionData;
 	const { categorias } = data;
 
 	if (!categorias) goto('/');
@@ -30,18 +31,30 @@
 					return evento.categoria;
 				})}
 			/>
+			{#if form?.errors?.categoria}
+				<span>* {form?.errors.categoria[0]}</span>
+			{/if}
 		</div>
 
 		<div>
 			<Input label="RUT" name="rut" ph="Ingrese su RUT" />
+			{#if form?.errors?.rut}
+				<span>* {form?.errors.rut[0]}</span>
+			{/if}
 		</div>
 
 		<div>
 			<Input label="Nombres" name="nombres" ph="Ingrese sus nombres" />
+			{#if form?.errors?.nombres}
+				<span>* {form?.errors.nombres[0]}</span>
+			{/if}
 		</div>
 
 		<div>
 			<Input label="Apellidos" name="apellidos" ph="Ingrese sus apellidos" />
+			{#if form?.errors?.apellidos}
+				<span>* {form?.errors.apellidos[0]}</span>
+			{/if}
 		</div>
 
 		<div>
@@ -51,6 +64,9 @@
 				ph="Seleccione su sexo"
 				options={Object.values(persona_sexo)}
 			/>
+			{#if form?.errors?.sexo}
+				<span>* {form?.errors.sexo[0]}</span>
+			{/if}
 		</div>
 
 		<div>
@@ -59,6 +75,9 @@
 				name="fecha_nacimiento"
 				ph="Ingrese su fecha de nacimiento"
 			/>
+			{#if form?.errors?.fecha_nacimiento}
+				<span>* {form?.errors.fecha_nacimiento[0]}</span>
+			{/if}
 		</div>
 
 		<div>
@@ -67,6 +86,9 @@
 				name="telefono_personal"
 				ph="Ingrese su teléfono de personal"
 			/>
+			{#if form?.errors?.telefono_personal}
+				<span>* {form?.errors.telefono_personal[0]}</span>
+			{/if}
 		</div>
 
 		<div>
@@ -75,14 +97,23 @@
 				name="telefono_contacto"
 				ph="Ingrese su teléfono de contacto"
 			/>
+			{#if form?.errors?.telefono_contacto}
+				<span>* {form?.errors.telefono_contacto[0]}</span>
+			{/if}
 		</div>
 
 		<div>
 			<Input label="Correo electrónico" name="correo" ph="Ingrese su correo electrónico" />
+			{#if form?.errors?.correo}
+				<span>* {form?.errors.correo[0]}</span>
+			{/if}
 		</div>
 
 		<div>
 			<Input label="Dirección" name="direccion" ph="Ingrese su dirección" />
+			{#if form?.errors?.direccion}
+				<span>* {form?.errors.direccion[0]}</span>
+			{/if}
 		</div>
 
 		<div>
@@ -96,6 +127,10 @@
 	section {
 		@apply flex justify-center p-6 lg:py-12;
 	}
+
+	h1 {
+		@apply text-2xl font-bold;
+	}
 	form {
 		@apply w-full max-w-3xl flex flex-col gap-y-3 bg-lightsecondary rounded-lg shadow-lg p-6;
 	}
@@ -104,7 +139,7 @@
 		@apply flex flex-col-reverse gap-y-4 md:flex-row md:gap-x-4 mt-4;
 	}
 
-	h1 {
-		@apply text-2xl font-bold;
+	span {
+		@apply text-neutralorange text-xs italic;
 	}
 </style>
