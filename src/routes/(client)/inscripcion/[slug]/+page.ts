@@ -5,7 +5,7 @@ import trpc from '$lib/trpc';
 export const load: PageLoad = async ({ params, fetch }) => {
 	if (!Number(params.slug)) throw error(404, 'Not Found');
 
-	const categorias = await trpc(fetch).query('eventos:category', { id: Number(params.slug) });
+	const categorias = await trpc(fetch).query('eventos:inscription', { id: Number(params.slug) });
 
 	if (!categorias) throw error(404, 'Not Found');
 

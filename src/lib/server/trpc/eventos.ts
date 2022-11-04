@@ -47,7 +47,7 @@ export const eventos = createRouter()
 			});
 		}
 	})
-	.query(':category', {
+	.query(':inscription', {
 		input: z.object({
 			id: z.number()
 		}),
@@ -59,6 +59,7 @@ export const eventos = createRouter()
 				select: {
 					id: true,
 					nombre: true,
+					poleras: true,
 					categoria_evento: {
 						select: {
 							categoria: true
