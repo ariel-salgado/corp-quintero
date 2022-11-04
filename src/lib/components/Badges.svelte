@@ -2,11 +2,15 @@
 	export let categorias: { categoria: string }[] | undefined;
 </script>
 
-{#if categorias}
+{#if categorias?.length}
 	<div>
 		{#each categorias as evento}
 			<span>{evento.categoria}</span>
 		{/each}
+	</div>
+{:else}
+	<div>
+		<span>Sin Categoría</span>
 	</div>
 {/if}
 
