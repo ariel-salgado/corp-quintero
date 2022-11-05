@@ -3,12 +3,37 @@
 	export let name: string | undefined = undefined;
 	export let ph: string | undefined = undefined;
 	export let value: string | null = null;
+	export let number: boolean = false;
+	export let date: boolean = false;
+
+	const numberInputInvalidChars = ['-', '+', 'e', 'E'];
+
+	function typeAction(node: HTMLInputElement) {
+		if (number) {
+			node.type = 'number';
+		} else if (date) {
+			node.type = 'date';
+		} else {
+			node.type = 'text';
+		}
+	}
 </script>
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <div>
 	<label>{label}</label>
-	<input type="text" {name} placeholder={ph} bind:value />
+	<input
+		on:input
+		use:typeAction
+		{name}
+		placeholder={ph}
+		bind:value
+		on:keypress={(e) => {
+			if (numberInputInvalidChars.includes(e.key) && number) {
+				e.preventDefault();
+			}
+		}}
+	/>
 </div>
 
 <style scoped>
