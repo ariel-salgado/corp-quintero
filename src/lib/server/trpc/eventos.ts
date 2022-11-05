@@ -1,6 +1,7 @@
 import { createRouter } from '$lib/server/createRouter';
 import prismaClient from '$lib/server/prismaClient';
 import { z } from 'zod';
+import { InscriptionSchema } from '$utils/zod/validations';
 
 export const eventos = createRouter()
 	.query(':all', {
@@ -67,5 +68,52 @@ export const eventos = createRouter()
 					}
 				}
 			});
+		}
+	})
+	.mutation(':inscription', {
+		input: InscriptionSchema,
+		resolve: async ({ input }) => {
+			input['telefono_contacto'] =
+				input['telefono_contacto'] === 0 ? null : input['telefono_contacto'];
+			const { id, categoria, ...rest } = input;
+			const inscripcion = await prismaClient.persona.upsert({
+				where: {
+					rut: rest.rut
+				},
+				update: {
+					...rest,
+					inscribe_evento: {
+						upsert: {
+							where: {
+								rut_id_evento: {
+									rut: rest.rut,
+									id_evento: id
+								}
+							},
+							update: {
+								id_evento: id,
+								fecha: new Date(),
+								categoria: categoria
+							},
+							create: {
+								id_evento: id,
+								fecha: new Date(),
+								categoria: categoria
+							}
+						}
+					}
+				},
+				create: {
+					...rest,
+					inscribe_evento: {
+						create: {
+							id_evento: id,
+							fecha: new Date(),
+							categoria: categoria
+						}
+					}
+				}
+			});
+			return inscripcion;
 		}
 	});
