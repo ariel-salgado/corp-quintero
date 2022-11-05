@@ -12,7 +12,7 @@ CREATE TABLE persona (
     nombres VARCHAR(50) NOT NULL,
     apellidos VARCHAR(50) NOT NULL,
     telefono_personal INT(9) NOT NULL,
-    telefono_contacto INT(9),
+    telefono_contacto INT(9) DEFAULT NULL,
     correo VARCHAR(50) NOT NULL,
     fecha_nacimiento DATE NOT NULL,
     direccion VARCHAR(100) NOT NULL,
