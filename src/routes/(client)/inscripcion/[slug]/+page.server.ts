@@ -1,13 +1,20 @@
 import type { Actions } from './$types';
 import { InscriptionSchema } from '$utils/zod/validations';
 import { ZodError } from 'zod';
+import trpc from '$lib/trpc';
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	default: async ({ request, params, fetch }) => {
 		const formData = Object.fromEntries(await request.formData());
+		const query = Object.assign(formData, { id: Number(params.slug) });
 
 		try {
-			const result = InscriptionSchema.parse(formData);
+			const parse = InscriptionSchema.parse(query);
+			const result = await trpc(fetch).mutation('eventos:inscription', parse);
+
+			return {
+				result: result
+			};
 		} catch (err: unknown) {
 			if (err instanceof ZodError) {
 				const { fieldErrors: errors } = err.flatten();
