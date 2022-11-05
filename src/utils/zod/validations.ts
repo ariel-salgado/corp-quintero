@@ -16,6 +16,7 @@ export const LoginSchema = z.object({
 });
 
 export const InscriptionSchema = z.object({
+	id: z.number({ required_error: 'Evento no encontrado' }),
 	categoria: z.string({ required_error: 'Debe seleccionar una categoría' }),
 	rut: z
 		.string()
@@ -43,14 +44,29 @@ export const InscriptionSchema = z.object({
 		.length(9, { message: 'El teléfono debe tener 9 dígitos' })
 		.refine((val) => {
 			return !Number.isNaN(Number(val));
-		}, 'Teléfono inválido'),
+		}, 'Teléfono inválido')
+		.transform((val) => Number(val))
+		.or(
+			z
+				.number({ required_error: 'Debe ingresar un teléfono' })
+				.gte(99999999, { message: 'El teléfono debe tener 9 dígitos' })
+				.lte(1000000000, { message: 'El teléfono debe tener 9 dígitos' })
+		),
 	telefono_contacto: z
 		.string()
 		.length(9, { message: 'El teléfono debe tener 9 dígitos' })
 		.or(z.string().length(0))
 		.refine((val) => {
 			return !Number.isNaN(Number(val));
-		}, 'Teléfono inválido'),
+		}, 'Teléfono inválido')
+		.transform((val) => Number(val))
+		.or(
+			z
+				.number({ required_error: 'Debe ingresar un teléfono' })
+				.gte(99999999, { message: 'El teléfono debe tener 9 dígitos' })
+				.lte(1000000000, { message: 'El teléfono debe tener 9 dígitos' })
+				.or(z.number().nullish())
+		),
 	correo: z
 		.string()
 		.min(1, { message: 'Debe ingresar un correo' })
@@ -61,11 +77,13 @@ export const InscriptionSchema = z.object({
 		.min(1, { message: 'Debe ingresar una fecha' })
 		.refine((val) => {
 			return !Number.isNaN(Date.parse(val));
-		}, 'Fecha inválida'),
+		}, 'Fecha inválida')
+		.transform((val) => new Date(val))
+		.or(z.date({ required_error: 'Debe ingresar una fecha' })),
 	direccion: z
 		.string({ required_error: 'Debe ingresar una dirección' })
 		.min(1, { message: 'Debe ingresar una dirección' })
 		.trim(),
 	sexo: z.nativeEnum(persona_sexo, { required_error: 'Debe seleccionar su sexo' }),
-	talla_polera: z.nativeEnum(persona_talla, { required_error: 'Debe seleccionar su talla' })
+	talla: z.nativeEnum(persona_talla, { required_error: 'Debe seleccionar su talla' })
 });
