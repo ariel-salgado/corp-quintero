@@ -4,7 +4,6 @@
 	import { persona_sexo, persona_talla } from '@prisma/client';
 	import Input from '$src/lib/components/Form/Input.svelte';
 	import Select from '$src/lib/components/Form/Select.svelte';
-	import Date from '$src/lib/components/Form/Date.svelte';
 	import Button from '$lib/components/Button.svelte';
 
 	export let data: PageData;
@@ -70,7 +69,8 @@
 		</div>
 
 		<div>
-			<Date
+			<Input
+				date
 				label="Fecha de nacimiento"
 				name="fecha_nacimiento"
 				ph="Ingrese su fecha de nacimiento"
@@ -82,6 +82,7 @@
 
 		<div>
 			<Input
+				number
 				label="Teléfono personal"
 				name="telefono_personal"
 				ph="Ingrese su teléfono de personal"
@@ -93,6 +94,7 @@
 
 		<div>
 			<Input
+				number
 				label="Teléfono contacto"
 				name="telefono_contacto"
 				ph="Ingrese su teléfono de contacto"
@@ -120,12 +122,12 @@
 			<div>
 				<Select
 					label="Talla de polera"
-					name="talla_polera"
+					name="talla"
 					ph="Seleccione su talla de polera"
 					options={Object.values(persona_talla)}
 				/>
-				{#if form?.errors?.talla_polera}
-					<span>* {form?.errors.talla_polera[0]}</span>
+				{#if form?.errors?.talla}
+					<span>* {form?.errors.talla[0]}</span>
 				{/if}
 			</div>
 		{/if}
