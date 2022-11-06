@@ -5,6 +5,7 @@
 	import Input from '$src/lib/components/Form/Input.svelte';
 	import Select from '$src/lib/components/Form/Select.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import Notification from '$src/lib/components/Notification.svelte';
 
 	export let data: PageData;
 	export let form: ActionData;
@@ -18,6 +19,25 @@
 </svelte:head>
 
 <section>
+	{#if form?.response !== undefined}
+		<aside>
+			{#if form?.response}
+				<Notification
+					success
+					openOn={true}
+					title="¡Gracias por inscribirte!"
+					body="Te hemos enviado un correo con los detalles de tu inscripción."
+				/>
+			{:else}
+				<Notification
+					error
+					openOn={true}
+					title="¡Ups!"
+					body="Ha ocurrido un error al inscribirte."
+				/>
+			{/if}
+		</aside>
+	{/if}
 	<form method="post">
 		<h1>{`Inscripción ${categorias.nombre}`}</h1>
 
@@ -141,7 +161,11 @@
 
 <style scoped>
 	section {
-		@apply flex justify-center p-6 lg:py-12;
+		@apply flex flex-col justify-center items-center p-6 lg:py-12;
+	}
+
+	aside {
+		@apply w-full text-center relative;
 	}
 
 	h1 {
