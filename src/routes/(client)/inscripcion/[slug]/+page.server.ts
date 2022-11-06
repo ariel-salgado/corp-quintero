@@ -12,8 +12,13 @@ export const actions: Actions = {
 			const parse = InscriptionSchema.parse(query);
 			const result = await trpc(fetch).mutation('eventos:inscription', parse);
 
+			if (result)
+				return {
+					response: true
+				};
+
 			return {
-				result: result
+				response: false
 			};
 		} catch (err: unknown) {
 			if (err instanceof ZodError) {
