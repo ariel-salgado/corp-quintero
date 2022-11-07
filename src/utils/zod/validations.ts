@@ -4,12 +4,12 @@ import { persona_sexo, persona_talla } from '@prisma/client';
 
 export const LoginSchema = z.object({
 	username: z
-		.string({ required_error: 'El usuario es obligatorio' })
-		.min(1, { message: 'El usuario es obligatorio' })
+		.string({ required_error: 'Debe ingresar un usuario' })
+		.min(1, { message: 'Debe ingresar un usuario' })
 		.max(50, { message: 'El usuario debe ser menor a 50 caracteres' })
 		.trim(),
 	password: z
-		.string({ required_error: 'La contraseña es obligatoria' })
+		.string({ required_error: 'Debe ingresar una contraseña' })
 		.min(6, { message: 'La contraseña debe ser mayor a 6 caracteres' })
 		.max(50, { message: 'La contraseña debe ser menor a 50 caracteres' })
 		.trim()
