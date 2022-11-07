@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData, ActionData } from './$types';
+	import { beforeUpdate } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { persona_sexo, persona_talla } from '@prisma/client';
 	import Input from '$src/lib/components/Form/Input.svelte';
@@ -11,7 +12,9 @@
 	export let form: ActionData;
 	const { categorias } = data;
 
-	if (!categorias) goto('/');
+	beforeUpdate(() => {
+		if (!categorias) goto('/');
+	});
 </script>
 
 <svelte:head>
