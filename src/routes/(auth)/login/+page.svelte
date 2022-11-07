@@ -1,33 +1,49 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import type { ActionData } from './$types';
 	import Button from '$lib/components/Button.svelte';
 	import Input from '$src/lib/components/Form/Input.svelte';
+	import Notification from '$src/lib/components/Notification.svelte';
 
-	export let form: any;
+	export let form: ActionData;
 </script>
 
 <svelte:head>
 	<title>Ingreso | Corporación Municipal de Deportes Quintero</title>
 </svelte:head>
 
-<aside />
+<aside>
+	<img src="/hero.webp" alt="Background" />
+</aside>
 <section>
+	{#if form?.message !== undefined}
+		<div>
+			{#if form.message}
+				<Notification
+					error
+					openOn={true}
+					title="Lo sentimos"
+					body="Los datos ingresados no son válidos, vuelva a intentarlo"
+				/>
+			{/if}
+		</div>
+	{/if}
+
 	<a href="/">
 		<img src="corp_logo.webp" width="350" alt="Corporación Municipal de Deportes Quintero" />
 	</a>
 
-	<form method="post" use:enhance>
+	<form method="post">
 		<div>
 			<Input name="username" label="Usuario" ph="Ingrese Usuario" />
 			{#if form?.errors?.username}
-				<span>{form?.errors.username[0]}</span>
+				<span>* {form?.errors.username[0]}</span>
 			{/if}
 		</div>
 
 		<div>
-			<Input name="password" label="Contraseña" ph="Ingrese Contraseña" />
+			<Input password name="password" label="Contraseña" ph="Ingrese Contraseña" />
 			{#if form?.errors?.password}
-				<span>{form?.errors.password[0]}</span>
+				<span>* {form?.errors.password[0]}</span>
 			{/if}
 		</div>
 
@@ -37,11 +53,19 @@
 
 <style scoped>
 	aside {
-		@apply hidden lg:block bg-darkblue w-full h-screen;
+		@apply hidden lg:block w-full h-screen;
+	}
+
+	aside img {
+		@apply object-cover w-full h-full;
 	}
 
 	section {
-		@apply w-full grid place-items-center gap-10 p-16;
+		@apply w-full grid place-items-center gap-10 p-10 lg:p-16;
+	}
+
+	section > div {
+		@apply w-full;
 	}
 
 	form {
@@ -49,10 +73,10 @@
 	}
 
 	form div {
-		@apply w-full text-end;
+		@apply w-full text-left;
 	}
 
 	span {
-		@apply text-neutralorange text-sm;
+		@apply text-neutralorange text-xs italic;
 	}
 </style>
