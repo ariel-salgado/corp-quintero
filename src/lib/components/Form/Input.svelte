@@ -5,6 +5,7 @@
 	export let value: string | null = null;
 	export let number: boolean = false;
 	export let date: boolean = false;
+	export let password: boolean = false;
 
 	const numberInputInvalidChars = ['-', '+', 'e', 'E'];
 
@@ -13,6 +14,8 @@
 			node.type = 'number';
 		} else if (date) {
 			node.type = 'date';
+		} else if (password) {
+			node.type = 'password';
 		} else {
 			node.type = 'text';
 		}
