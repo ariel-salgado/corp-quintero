@@ -1,7 +1,5 @@
 <script lang="ts">
 	import type { PageData, ActionData } from './$types';
-	import { applyAction, enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
 	import { persona_sexo, persona_talla } from '@prisma/client';
 	import Input from '$src/lib/components/Form/Input.svelte';
 	import Select from '$src/lib/components/Form/Select.svelte';
@@ -37,15 +35,7 @@
 			{/if}
 		</aside>
 	{/if}
-	<form
-		method="post"
-		use:enhance={() => {
-			return async ({ result }) => {
-				invalidateAll();
-				await applyAction(result);
-			};
-		}}
-	>
+	<form method="post">
 		<h1>{`Inscripción ${evento.nombre}`}</h1>
 
 		<div>
