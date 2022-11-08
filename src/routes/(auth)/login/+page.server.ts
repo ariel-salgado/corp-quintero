@@ -18,20 +18,19 @@ export const actions: Actions = {
 			const parse = LoginSchema.parse(formData);
 			const result = await trpc(fetch).query('log:in', parse);
 
-			if (result) {
-				cookies.set('session', 'authenticated', {
-					httpOnly: true,
-					sameSite: 'strict',
-					maxAge: 60 * 60 * 24
-				});
-				throw redirect(200, '/dashboard');
-			}
+			if (!result) return invalid(400, { credentials: true });
 
-			return invalid(400, { message: 'Credenciales inválidas' });
+			cookies.set('session', 'authenticated', {
+				path: '/',
+				httpOnly: true,
+				sameSite: 'strict',
+				maxAge: 60 * 60 * 24
+			});
+			throw redirect(200, '/dashboard');
 		} catch (err: unknown) {
 			if (err instanceof ZodError) {
 				const { fieldErrors: errors } = err.flatten();
-				const { username, password, ...rest } = formData;
+				const { ...rest } = formData;
 				return {
 					data: rest,
 					errors
