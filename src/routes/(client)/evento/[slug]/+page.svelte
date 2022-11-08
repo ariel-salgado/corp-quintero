@@ -1,14 +1,11 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { goto } from '$app/navigation';
 	import Button from '$lib/components/Button.svelte';
 	import Badges from '$lib/components/Badges.svelte';
 	import EventoDetails from '$src/lib/components/EventoDetails.svelte';
 
 	export let data: PageData;
 	const { evento } = data;
-
-	if (!evento || evento?.estado === 'Inactivo') goto('/');
 
 	const fecha_termino = new Date(evento!.fecha_termino);
 	const hora_inicio = new Date(evento!.hora_inicio);
@@ -36,7 +33,7 @@
 			<p>{@html evento?.descripcion}</p>
 			<p>{@html evento?.requisitos}</p>
 			<div>
-				{#if evento?.tipo === 'Abierto'}
+				{#if evento?.tipo === 'Abierto' && evento?.estado === 'Activo'}
 					<Button to={`/inscripcion/${evento?.id}`} text="Inscribirse" />
 				{/if}
 				<Button to="/" text="Volver" />
