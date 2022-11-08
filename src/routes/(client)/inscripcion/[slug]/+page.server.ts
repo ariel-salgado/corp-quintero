@@ -12,18 +12,18 @@ export const actions: Actions = {
 			const parse = InscriptionSchema.parse(query);
 			const result = await trpc(fetch).mutation('eventos:inscription', parse);
 
-			if (result)
+			if (!result)
 				return {
-					response: true
+					response: false
 				};
 
 			return {
-				response: false
+				response: true
 			};
 		} catch (err: unknown) {
 			if (err instanceof ZodError) {
 				const { fieldErrors: errors } = err.flatten();
-				const { username, password, ...rest } = formData;
+				const { ...rest } = formData;
 				return {
 					data: rest,
 					errors
