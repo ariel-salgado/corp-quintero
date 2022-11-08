@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData, ActionData } from './$types';
-	import { beforeUpdate } from 'svelte';
-	import { goto } from '$app/navigation';
+	import { applyAction, enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 	import { persona_sexo, persona_talla } from '@prisma/client';
 	import Input from '$src/lib/components/Form/Input.svelte';
 	import Select from '$src/lib/components/Form/Select.svelte';
@@ -10,15 +10,11 @@
 
 	export let data: PageData;
 	export let form: ActionData;
-	const { categorias } = data;
-
-	beforeUpdate(() => {
-		if (!categorias) goto('/');
-	});
+	const { evento } = data;
 </script>
 
 <svelte:head>
-	<title>Inscripción {categorias.nombre} | Corporación Municipal de Deportes Quintero</title>
+	<title>Inscripción {evento.nombre} | Corporación Municipal de Deportes Quintero</title>
 </svelte:head>
 
 <section>
@@ -41,15 +37,23 @@
 			{/if}
 		</aside>
 	{/if}
-	<form method="post">
-		<h1>{`Inscripción ${categorias.nombre}`}</h1>
+	<form
+		method="post"
+		use:enhance={() => {
+			return async ({ result }) => {
+				invalidateAll();
+				await applyAction(result);
+			};
+		}}
+	>
+		<h1>{`Inscripción ${evento.nombre}`}</h1>
 
 		<div>
 			<Select
 				label="Categoría"
 				name="categoria"
 				ph="Selecciona una categoría"
-				options={categorias.categoria_evento.map((evento) => {
+				options={evento.categoria_evento.map((evento) => {
 					return evento.categoria;
 				})}
 			/>
@@ -141,7 +145,7 @@
 			{/if}
 		</div>
 
-		{#if categorias.poleras}
+		{#if evento.poleras}
 			<div>
 				<Select
 					label="Talla de polera"
@@ -156,7 +160,7 @@
 		{/if}
 
 		<div>
-			<Button text="Volver" to={`/evento/${categorias.id}`} />
+			<Button text="Volver" to={`/evento/${evento.id}`} />
 			<Button text="Inscribirse" />
 		</div>
 	</form>
@@ -168,7 +172,7 @@
 	}
 
 	aside {
-		@apply w-full text-center relative;
+		@apply w-full max-w-3xl text-center;
 	}
 
 	h1 {
