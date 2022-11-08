@@ -15,9 +15,9 @@
 	<img src="/hero.webp" alt="Background" />
 </aside>
 <section>
-	{#if form?.message !== undefined}
+	{#if form !== undefined}
 		<div>
-			{#if form.message}
+			{#if form?.credentials}
 				<Notification
 					error
 					openOn={true}
