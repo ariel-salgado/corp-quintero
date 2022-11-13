@@ -48,6 +48,7 @@
 		</div>
 
 		<Button text="Ingresar" />
+		<Button text="Volver" to="/" />
 	</form>
 </section>
 
