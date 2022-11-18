@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 	import Button from '$lib/components/Button.svelte';
-	import Input from '$src/lib/components/Form/Input.svelte';
-	import Notification from '$src/lib/components/Notification.svelte';
+	import Input from '$lib/components/form/Input.svelte';
+	import Notification from '$lib/components/Notification.svelte';
 
 	export let form: ActionData;
 </script>
@@ -32,7 +32,7 @@
 		<img src="corp_logo.webp" width="350" alt="Corporación Municipal de Deportes Quintero" />
 	</a>
 
-	<form method="post">
+	<form action="?/login" method="post">
 		<div>
 			<Input name="username" label="Usuario" ph="Ingrese Usuario" />
 			{#if form?.errors?.username}
