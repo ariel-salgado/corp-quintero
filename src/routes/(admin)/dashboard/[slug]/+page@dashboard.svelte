@@ -27,57 +27,67 @@
 </script>
 
 <section>
+	<img src={`/eventos/${evento?.id}.webp`} alt={evento?.nombre} />
 	<div>
-		<img src={`/eventos/${evento?.id}.webp`} alt={evento?.nombre} />
-		<div>
-			<Badges categorias={evento?.categoria_evento} />
-			<h1>{evento?.nombre}</h1>
-			<EventoDetails
-				{fecha_termino}
-				{hora_inicio}
-				{hora_termino}
-				cupo={evento?.cupo}
-				direccion={evento?.direccion}
-			/>
-			<p>{@html evento?.descripcion}</p>
-			<p>{@html evento?.requisitos}</p>
-			<div>
-				<Button to="/dashboard" text="Volver" />
-			</div>
-		</div>
+		<Badges categorias={evento?.categoria_evento} />
+		<h1>{evento?.nombre}</h1>
+		<EventoDetails
+			{fecha_termino}
+			{hora_inicio}
+			{hora_termino}
+			cupo={evento?.cupo}
+			direccion={evento?.direccion}
+		/>
+		<p>{@html evento?.descripcion}</p>
+		<p>{@html evento?.requisitos}</p>
+		<br />
+		<Button to="/dashboard" text="Volver" />
 	</div>
+</section>
 
+<section>
 	<div>
 		<h1>Total inscritos: {evento.inscribe_evento.length}</h1>
-		<div>
+		<aside>
+			{#if evento.poleras}
+				<div>
+					<h2>Cantidad de poleras:</h2>
+					<dl>
+						{#each Object.values(persona_talla) as talla, i}
+							<dt class={i % 2 === 0 ? 'odd' : 'even'}>
+								{talla}:
+							</dt>
+							<dd class={i % 2 === 0 ? 'odd' : 'even'}>
+								{evento.inscribe_evento.filter((inscrito) => inscrito.persona.talla === talla)
+									.length}
+							</dd>
+						{/each}
+					</dl>
+				</div>
+			{/if}
 			<div>
-				<h1>Cantidad de poleras:</h1>
-				{#each Object.values(persona_talla) as talla}
-					<p>
-						{talla}: {evento.inscribe_evento.filter((inscrito) => inscrito.persona.talla === talla)
-							.length}
-					</p>
-				{/each}
-			</div>
-			<div>
-				<h1>Cantidad de inscritos por categoría:</h1>
+				<h2>Cantidad de inscritos por categoría:</h2>
 				{#if evento.categoria_evento.length > 0}
-					{#each evento.categoria_evento as e}
-						<p>
-							{e.categoria}: {evento.inscribe_evento.filter(
-								(inscrito) => inscrito.categoria === e.categoria
-							).length}
-						</p>
-					{/each}
+					<dl>
+						{#each evento.categoria_evento as e, i}
+							<dt class={i % 2 === 0 ? 'odd' : 'even'}>
+								{e.categoria}:
+							</dt>
+							<dd class={i % 2 === 0 ? 'odd' : 'even'}>
+								{evento.inscribe_evento.filter((inscrito) => inscrito.categoria === e.categoria)
+									.length}
+							</dd>
+						{/each}
+					</dl>
 				{:else}
 					<p>Sin categoría: {evento.inscribe_evento.length}</p>
 				{/if}
 			</div>
-		</div>
-	</div>
+		</aside>
 
-	<div>
-		<Table {cols} rows={evento.inscribe_evento} />
+		<section>
+			<Table {cols} rows={evento.inscribe_evento} />
+		</section>
 	</div>
 </section>
 
@@ -87,26 +97,43 @@
 	}
 
 	section > div {
-		@apply w-full flex flex-col bg-lightsecondary rounded-lg shadow-lg;
+		@apply w-full flex flex-col bg-lightsecondary rounded-lg shadow-lg p-6;
 	}
 
-	img {
-		@apply w-full h-80 object-cover rounded-t-lg;
+	aside {
+		@apply flex justify-evenly my-4;
 	}
 
-	section div > div {
-		@apply p-6;
+	dl {
+		@apply w-full flex flex-wrap text-center border;
+	}
+
+	dt,
+	dd {
+		@apply w-1/2 py-1;
+	}
+
+	.odd {
+		@apply bg-lightprimary;
+	}
+
+	.even {
+		@apply bg-lightsecondary;
 	}
 
 	h1 {
-		@apply text-2xl my-4;
+		@apply text-2xl my-4 px-6;
+	}
+
+	h2 {
+		@apply text-xl mb-4;
 	}
 
 	p {
 		@apply text-sm mb-4;
 	}
 
-	section div div div {
-		@apply flex flex-col md:flex-row-reverse p-0 gap-y-4 md:gap-x-4 mt-6;
+	img {
+		@apply w-full h-80 object-cover rounded-t-lg;
 	}
 </style>
