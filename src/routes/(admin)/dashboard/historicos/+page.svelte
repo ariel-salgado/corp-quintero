@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Table from '$lib/components/dashboard/Table.svelte';
+	import Table from '$src/lib/components/dashboard/EventosTable.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
