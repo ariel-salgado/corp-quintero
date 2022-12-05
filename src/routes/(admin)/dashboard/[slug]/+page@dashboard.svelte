@@ -122,7 +122,7 @@
 	}
 
 	h1 {
-		@apply text-2xl my-4 px-6;
+		@apply text-2xl my-4;
 	}
 
 	h2 {
