@@ -6,7 +6,11 @@
 </script>
 
 <article>
-	<img src={`/eventos/${evento.id}.webp`} alt={evento.nombre} />
+	{#if evento.id > 5}
+		<img src={`/not-found.webp`} alt={evento.nombre} />
+	{:else}
+		<img src={`/eventos/${evento.id}.webp`} alt={evento.nombre} />
+	{/if}
 	<div>
 		<h1>{evento.nombre}</h1>
 		<p>

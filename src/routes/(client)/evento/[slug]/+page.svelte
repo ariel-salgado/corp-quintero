@@ -15,7 +15,12 @@
 
 <section>
 	<div>
-		<img src={`/eventos/${evento?.id}.webp`} alt={evento?.nombre} />
+		{#if evento.id > 5}
+			<img src={`/not-found.webp`} alt={evento.nombre} />
+		{:else}
+			<img src={`/eventos/${evento?.id}.webp`} alt={evento?.nombre} />
+		{/if}
+		
 		<div>
 			<Badges categorias={evento?.categoria_evento} />
 			<h1>{evento?.nombre}</h1>
