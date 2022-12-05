@@ -6,10 +6,6 @@
 
 	export let data: PageData;
 	const { evento } = data;
-
-	const fecha_termino = new Date(evento!.fecha_termino);
-	const hora_inicio = new Date(evento!.hora_inicio);
-	const hora_termino = new Date(evento!.hora_termino);
 </script>
 
 <svelte:head>
@@ -24,9 +20,9 @@
 			<Badges categorias={evento?.categoria_evento} />
 			<h1>{evento?.nombre}</h1>
 			<EventoDetails
-				{fecha_termino}
-				{hora_inicio}
-				{hora_termino}
+				fecha_termino={evento.fecha_termino}
+				hora_inicio={evento.hora_inicio}
+				hora_termino={evento.hora_termino}
 				cupo={evento?.cupo}
 				direccion={evento?.direccion}
 			/>
