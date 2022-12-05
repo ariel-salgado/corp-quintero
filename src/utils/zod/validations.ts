@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { validaRut } from '$utils/validaRut';
-import { persona_sexo, persona_talla } from '@prisma/client';
+import { persona_sexo, persona_talla, evento_tipo } from '@prisma/client';
 
 export const LoginSchema = z.object({
 	username: z
@@ -86,4 +86,63 @@ export const InscriptionSchema = z.object({
 		.trim(),
 	sexo: z.nativeEnum(persona_sexo, { required_error: 'Debe seleccionar su sexo' }),
 	talla: z.nativeEnum(persona_talla, { required_error: 'Debe seleccionar su talla' })
+});
+
+export const UpsertEventoSchema = z.object({
+	nombre: z.string({ required_error: 'Debe ingresar un nombre' }).trim(),
+	tipo: z.nativeEnum(evento_tipo, { required_error: 'Debe seleccionar un tipo' }),
+	cupo: z
+		.string({ required_error: 'Debe ingresar un cupo' })
+		.min(1, { message: 'Debe ingresar un cupo' })
+		.refine((val) => {
+			return !Number.isNaN(Number(val));
+		}, 'El cupo debe ser un número')
+		.transform((val) => Number(val))
+		.or(
+			z
+				.number({ required_error: 'Debe ingresar un cupo' })
+				.gte(1, { message: 'El cupo tiene que ser mayor a 0' })
+		),
+	fecha_inicio: z.preprocess((arg) => {
+		if (typeof arg == 'string' || arg instanceof Date) {
+			const date = new Date(arg);
+			return new Date(date.getTime() - date.getTimezoneOffset() * -60000);
+		}
+	}, z.date({ required_error: 'Debe ingresar una fecha de inicio' })),
+	fecha_termino: z.preprocess((arg) => {
+		if (typeof arg == 'string' || arg instanceof Date) {
+			const date = new Date(arg);
+			return new Date(date.getTime() - date.getTimezoneOffset() * -60000);
+		}
+	}, z.date({ required_error: 'Debe ingresar una fecha de término' })),
+	hora_inicio: z.preprocess((arg) => {
+		if (typeof arg === 'string' && arg.length === 5) {
+			const [hora, minutos] = arg.split(':');
+			return new Date(new Date().setHours(Number(hora), Number(minutos), 0, 0));
+		} else {
+			const date = new Date(arg as string);
+			return new Date(
+				new Date(arg as string).setHours(date.getHours() - 3, date.getMinutes(), 0, 0)
+			);
+		}
+	}, z.date({ required_error: 'Debe ingresar una hora de inicio' })),
+	hora_termino: z.preprocess((arg) => {
+		if (typeof arg === 'string' && arg.length === 5) {
+			const [hora, minutos] = arg.split(':');
+			return new Date(new Date().setHours(Number(hora), Number(minutos), 0, 0));
+		} else {
+			const date = new Date(arg as string);
+			return new Date(
+				new Date(arg as string).setHours(date.getHours() - 3, date.getMinutes(), 0, 0)
+			);
+		}
+	}, z.date({ required_error: 'Debe ingresar una hora de término' })),
+	direccion: z.string({ required_error: 'Debe ingresar una dirección' }).trim(),
+	descripcion: z.string({ required_error: 'Debe ingresar una descripción' }).trim(),
+	requisitos: z.string({ required_error: 'Debe ingresar requisitos' }).trim().nullish(),
+	poleras: z
+		.string()
+		.optional()
+		.transform((val) => (val == 'on' ? true : false))
+		.or(z.boolean())
 });
