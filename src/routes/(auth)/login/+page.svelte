@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 	import Button from '$lib/components/Button.svelte';
-	import Input from '$lib/components/form/Input.svelte';
+	import Input from '$lib/components/Input.svelte';
 	import Notification from '$lib/components/Notification.svelte';
 
 	export let form: ActionData;

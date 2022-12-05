@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { ActionData, PageData } from './$types';
 	import { evento_tipo } from '@prisma/client';
-	import Input from '$lib/components/form/Input.svelte';
-	import TextArea from '$lib/components/form/TextArea.svelte';
-	import Select from '$lib/components/form/Select.svelte';
+	import Input from '$lib/components/Input.svelte';
+	import TextArea from '$lib/components/TextArea.svelte';
+	import Select from '$lib/components/Select.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Notification from '$lib/components/Notification.svelte';
 
@@ -11,40 +11,43 @@
 	export let data: PageData;
 	const { evento } = data;
 
-  const [dia_inicio, mes_inicio, ano_inicio] = 
-    new Date(
-      new Date(
-        new Date(evento.fecha_inicio).getTime() - 
-        new Date(evento.fecha_inicio).getTimezoneOffset() * -60000
-      )
-    ).toLocaleDateString('es-CL').split('-');
+	const [dia_inicio, mes_inicio, ano_inicio] = new Date(
+		new Date(
+			new Date(evento.fecha_inicio).getTime() -
+				new Date(evento.fecha_inicio).getTimezoneOffset() * -60000
+		)
+	)
+		.toLocaleDateString('es-CL')
+		.split('-');
 
-  const [dia_termino, mes_termino, ano_termino] =
-    new Date(
-      new Date(
-        new Date(evento.fecha_termino).getTime() - 
-        new Date(evento.fecha_termino).getTimezoneOffset() * -60000
-      )
-    ).toLocaleDateString('es-CL').split('-');
+	const [dia_termino, mes_termino, ano_termino] = new Date(
+		new Date(
+			new Date(evento.fecha_termino).getTime() -
+				new Date(evento.fecha_termino).getTimezoneOffset() * -60000
+		)
+	)
+		.toLocaleDateString('es-CL')
+		.split('-');
 
-  const [hora_inicio, minuto_inicio] = 
-    new Date(
-      new Date(evento.hora_inicio).getTime() - 
-      new Date(evento.fecha_inicio).getTimezoneOffset() * -60000
-			).toLocaleTimeString('es-CL', {
-				hour: '2-digit',
-				minute: '2-digit'
-			}).split(':');
+	const [hora_inicio, minuto_inicio] = new Date(
+		new Date(evento.hora_inicio).getTime() -
+			new Date(evento.fecha_inicio).getTimezoneOffset() * -60000
+	)
+		.toLocaleTimeString('es-CL', {
+			hour: '2-digit',
+			minute: '2-digit'
+		})
+		.split(':');
 
-  const [hora_termino, minuto_termino] = 
-    new Date(
-      new Date(evento.hora_termino).getTime() - 
-      new Date(evento.fecha_termino).getTimezoneOffset() * -60000
-      ).toLocaleTimeString('es-CL', {
-        hour: '2-digit',
-        minute: '2-digit'
-      }).split(':');
-
+	const [hora_termino, minuto_termino] = new Date(
+		new Date(evento.hora_termino).getTime() -
+			new Date(evento.fecha_termino).getTimezoneOffset() * -60000
+	)
+		.toLocaleTimeString('es-CL', {
+			hour: '2-digit',
+			minute: '2-digit'
+		})
+		.split(':');
 </script>
 
 <svelte:head>
@@ -86,7 +89,7 @@
 				label="Tipo"
 				name="tipo"
 				ph="Seleccione tipo de evento"
-        bind:value={evento.tipo}
+				bind:value={evento.tipo}
 				options={Object.values(evento_tipo)}
 			/>
 			{#if form?.errors?.tipo}
@@ -95,7 +98,7 @@
 		</div>
 
 		<div>
-			<Input number label="Cupo" name="cupo" ph="Ingrese cupo del evento" value={evento.cupo}/>
+			<Input number label="Cupo" name="cupo" ph="Ingrese cupo del evento" value={evento.cupo} />
 			{#if form?.errors?.cupo}
 				<span>* {form?.errors.cupo[0]}</span>
 			{/if}
@@ -107,7 +110,7 @@
 				label="Fecha de inicio"
 				name="fecha_inicio"
 				ph="Ingrese la fecha de inicio del evento"
-        value={`${ano_inicio}-${mes_inicio}-${dia_inicio}`}
+				value={`${ano_inicio}-${mes_inicio}-${dia_inicio}`}
 			/>
 			{#if form?.errors?.fecha_inicio}
 				<span>* {form?.errors.fecha_inicio[0]}</span>
@@ -120,7 +123,7 @@
 				label="Fecha de término"
 				name="fecha_termino"
 				ph="Ingrese la fecha de termino del evento"
-        value={`${ano_termino}-${mes_termino}-${dia_termino}`}
+				value={`${ano_termino}-${mes_termino}-${dia_termino}`}
 			/>
 			{#if form?.errors?.fecha_termino}
 				<span>* {form?.errors.fecha_termino[0]}</span>
@@ -133,7 +136,7 @@
 				label="Hora de inicio"
 				name="hora_inicio"
 				ph="Ingrese la hora de inicio del evento"
-        value={`${hora_inicio}:${minuto_inicio}`}
+				value={`${hora_inicio}:${minuto_inicio}`}
 			/>
 			{#if form?.errors?.hora_inicio}
 				<span>* {form?.errors.hora_inicio[0]}</span>
@@ -146,7 +149,7 @@
 				label="Hora de término"
 				name="hora_termino"
 				ph="Ingrese la hora de término del evento"
-        value={`${hora_termino}:${minuto_termino}`}
+				value={`${hora_termino}:${minuto_termino}`}
 			/>
 			{#if form?.errors?.hora_termino}
 				<span>* {form?.errors.hora_termino[0]}</span>
@@ -154,31 +157,36 @@
 		</div>
 
 		<div>
-			<Input label="Dirección" name="direccion" ph="Ingrese la dirección del evento" value={evento.direccion} />
+			<Input
+				label="Dirección"
+				name="direccion"
+				ph="Ingrese la dirección del evento"
+				value={evento.direccion}
+			/>
 			{#if form?.errors?.direccion}
 				<span>* {form?.errors.direccion[0]}</span>
 			{/if}
 		</div>
 
 		<div>
-			<TextArea 
-        label="Descripción" 
-        name="descripcion" 
-        ph="Ingrese la descripción del evento" 
-        value={evento.descripcion} 
-      />
+			<TextArea
+				label="Descripción"
+				name="descripcion"
+				ph="Ingrese la descripción del evento"
+				value={evento.descripcion}
+			/>
 			{#if form?.errors?.descripcion}
 				<span>* {form?.errors.descripcion[0]}</span>
 			{/if}
 		</div>
 
 		<div>
-			<TextArea 
-        label="Requisitos" 
-        name="requisitos" 
-        ph="Ingrese los requisitos del evento" 
-        value={evento.requisitos}
-      />
+			<TextArea
+				label="Requisitos"
+				name="requisitos"
+				ph="Ingrese los requisitos del evento"
+				value={evento.requisitos}
+			/>
 			{#if form?.errors?.requisitos}
 				<span>* {form?.errors.requisitos[0]}</span>
 			{/if}

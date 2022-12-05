@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 	import { evento_tipo } from '@prisma/client';
-	import Input from '$lib/components/form/Input.svelte';
-	import TextArea from '$lib/components/form/TextArea.svelte';
-	import Select from '$lib/components/form/Select.svelte';
+	import Input from '$lib/components/Input.svelte';
+	import TextArea from '$lib/components/TextArea.svelte';
+	import Select from '$lib/components/Select.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Notification from '$lib/components/Notification.svelte';
 

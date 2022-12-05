@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { PageData, ActionData } from './$types';
 	import { persona_sexo, persona_talla } from '@prisma/client';
-	import Input from '$lib/components/form/Input.svelte';
-	import Select from '$lib/components/form/Select.svelte';
+	import Input from '$lib/components/Input.svelte';
+	import Select from '$lib/components/Select.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Notification from '$lib/components/Notification.svelte';
 
