@@ -4,21 +4,27 @@
 	import group from '$lib/assets/group.svg';
 	import location from '$lib/assets/location.svg';
 
-	export let fecha_termino: Date | undefined;
-	export let hora_inicio: Date | undefined;
-	export let hora_termino: Date | undefined;
-	export let cupo: number | undefined;
-	export let direccion: string | undefined;
+	export let fecha_termino: Date;
+	export let hora_inicio: Date;
+	export let hora_termino: Date;
+	export let cupo: number;
+	export let direccion: string;
+
+	fecha_termino = new Date(fecha_termino);
+	hora_inicio = new Date(hora_inicio);
+	hora_termino = new Date(hora_termino);
 </script>
 
 <picture>
 	<div>
 		<img src={calendar} alt="Calendario" />
 		<span>
-			{fecha_termino?.toLocaleDateString('es-CL', {
-				day: 'numeric',
+			{new Date(
+				fecha_termino?.getTime() - fecha_termino?.getTimezoneOffset() * -60000
+			).toLocaleDateString('es-CL', {
+				year: 'numeric',
 				month: 'short',
-				year: 'numeric'
+				day: 'numeric'
 			})}
 		</span>
 	</div>
@@ -26,11 +32,15 @@
 	<div>
 		<img src={clock} alt="Horario" />
 		<span>
-			{hora_inicio?.toLocaleTimeString('es-CL', {
+			{new Date(
+				hora_inicio?.getTime() - fecha_termino?.getTimezoneOffset() * -60000
+			).toLocaleTimeString('es-CL', {
 				hour: '2-digit',
 				minute: '2-digit'
 			})} -
-			{hora_termino?.toLocaleTimeString('es-CL', {
+			{new Date(
+				hora_termino?.getTime() - fecha_termino?.getTimezoneOffset() * -60000
+			).toLocaleTimeString('es-CL', {
 				hour: '2-digit',
 				minute: '2-digit'
 			})}
