@@ -1,7 +1,8 @@
 import { createRouter } from '$lib/server/createRouter';
 import prismaClient from '$lib/server/prismaClient';
 import { z } from 'zod';
-import { InscriptionSchema } from '$utils/zod/validations';
+import { UpsertEventoSchema } from '$utils/zod/validations';
+//import { handler } from '$build/handler.js';
 
 export const dashboard = createRouter()
 	.query(':actives', {
@@ -96,6 +97,45 @@ export const dashboard = createRouter()
 							}
 						}
 					}
+				}
+			});
+
+			return evento;
+		}
+	})
+	.mutation(':upsert', {
+		input: UpsertEventoSchema,
+		resolve: async ({ input }) => {
+			const query = prismaClient.evento.create({
+				data: {
+					...input
+				}
+			});
+
+			return query;
+		}
+	})
+	.query(':edit-evento', {
+		input: z.object({
+			id: z.number()
+		}),
+		resolve: async ({ input }) => {
+			const evento = prismaClient.evento.findUnique({
+				where: {
+					id: input.id
+				},
+				select: {
+					nombre: true,
+					tipo: true,
+					cupo: true,
+					fecha_inicio: true,
+					fecha_termino: true,
+					hora_inicio: true,
+					hora_termino: true,
+					direccion: true,
+					descripcion: true,
+					requisitos: true,
+					poleras: true
 				}
 			});
 
