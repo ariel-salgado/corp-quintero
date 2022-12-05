@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -7,16 +7,13 @@ const config = {
 	// for more information about preprocessors
 	kit: {
 		adapter: adapter({
-			fallback: 'index.html',
-			precompress: true,
-			strict: true
+			out: 'build',
+			precompress: true
 		}),
 		alias: {
 			$src: './src',
-			$utils: './src/utils'
-		},
-		prerender: {
-			enabled: true
+			$utils: './src/utils',
+			$build: './build'
 		}
 	},
 
