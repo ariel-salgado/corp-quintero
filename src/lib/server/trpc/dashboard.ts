@@ -2,7 +2,6 @@ import { createRouter } from '$lib/server/createRouter';
 import prismaClient from '$lib/server/prismaClient';
 import { z } from 'zod';
 import { UpsertEventoSchema } from '$utils/zod/validations';
-//import { handler } from '$build/handler.js';
 
 export const dashboard = createRouter()
 	.query(':actives', {
@@ -140,5 +139,22 @@ export const dashboard = createRouter()
 			});
 
 			return evento;
+		}
+	})
+	.mutation(':delete', {
+		input: z.object({
+			id: z.number()
+		}),
+		resolve: async ({ input }) => {
+			const query = prismaClient.evento.update({
+				where: {
+					id: input.id
+				},
+				data: {
+					estado: 'Inactivo'
+				}
+			});
+
+			return query;
 		}
 	});
