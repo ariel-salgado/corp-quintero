@@ -26,11 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd /prisma/
-    - run: npx prisma db pull
+    - run: npm i
     - run: npx prisma generate
-    - run: npm run seed
-    - run: mv seed.js seed.cjs
-    - run: cd ..
-    - run: npm run push
-    - run: npm run start
+    - run: npm run build 
+    - run: npm run preview
