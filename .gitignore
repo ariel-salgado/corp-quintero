@@ -4,8 +4,6 @@ node_modules
 /.svelte-kit
 /package
 !.env.example
-pnpm-lock.yaml
-package-lock.json
 /test-results/
 /playwright-report/
 /playwright/.cache/
