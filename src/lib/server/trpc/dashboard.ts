@@ -102,10 +102,25 @@ export const dashboard = createRouter()
 			return evento;
 		}
 	})
-	.mutation(':upsert', {
+	.mutation(':create', {
 		input: UpsertEventoSchema,
 		resolve: async ({ input }) => {
 			const query = prismaClient.evento.create({
+				data: {
+					...input
+				}
+			});
+
+			return query;
+		}
+	})
+	.mutation(':update', {
+		input: UpsertEventoSchema.merge(z.object({ id: z.number() })),
+		resolve: async ({ input }) => {
+			const query = prismaClient.evento.update({
+				where: {
+					id: input.id
+				},
 				data: {
 					...input
 				}

@@ -6,19 +6,16 @@ import trpc from '$lib/trpc';
 export const actions: Actions = {
 	default: async ({ request, fetch }) => {
 		const data = await request.formData();
-		//const file: File = data.get('foto') as File;
 		const formData = Object.fromEntries(data);
 		delete formData.foto;
 		try {
 			const parse = UpsertEventoSchema.parse(formData);
-			const result = await trpc(fetch).mutation('dashboard:upsert', parse);
+			const result = await trpc(fetch).mutation('dashboard:create', parse);
 
 			if (!result)
 				return {
 					response: false
 				};
-
-			//const upload = await trpc(fetch).mutation('dashboard:upload', file);
 
 			return {
 				response: true

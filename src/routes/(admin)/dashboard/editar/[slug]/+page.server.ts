@@ -1,7 +1,7 @@
 import type { PageLoad, Actions } from './$types';
 import { error } from '@sveltejs/kit';
 import { UpsertEventoSchema } from '$utils/zod/validations';
-import { ZodError } from 'zod';
+import { z, ZodError } from 'zod';
 import trpc from '$lib/trpc';
 
 export const load: PageLoad = async ({ params, fetch }) => {
@@ -17,21 +17,20 @@ export const load: PageLoad = async ({ params, fetch }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, fetch }) => {
+	default: async ({ params, request, fetch }) => {
+		if (!Number(params.slug)) throw error(404, 'Not Found');
+
 		const data = await request.formData();
-		//const file: File = data.get('foto') as File;
 		const formData = Object.fromEntries(data);
-		delete formData.foto;
+		const query = Object.assign(formData, { id: Number(params.slug) });
 		try {
-			const parse = UpsertEventoSchema.parse(formData);
-			const result = await trpc(fetch).mutation('dashboard:upsert', parse);
+			const parse = UpsertEventoSchema.merge(z.object({ id: z.number() })).parse(query);
+			const result = await trpc(fetch).mutation('dashboard:update', parse);
 
 			if (!result)
 				return {
 					response: false
 				};
-
-			//const upload = await trpc(fetch).mutation('dashboard:upload', file);
 
 			return {
 				response: true
