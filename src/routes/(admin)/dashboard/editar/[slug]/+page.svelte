@@ -98,7 +98,13 @@
 		</div>
 
 		<div>
-			<Input number label="Cupo" name="cupo" ph="Ingrese cupo del evento" value={evento.cupo} />
+			<Input
+				number
+				label="Cupo"
+				name="cupo"
+				ph="Ingrese cupo del evento"
+				value={String(evento.cupo)}
+			/>
 			{#if form?.errors?.cupo}
 				<span>* {form?.errors.cupo[0]}</span>
 			{/if}
@@ -201,8 +207,8 @@
 			{/if}
 		</div>
 
+		<!--
 		<div>
-			<!-- svelte-ignore a11y-label-has-associated-control -->
 			<label>Foto</label>
 			<input
 				accept="image/png, image/jpeg, image/jpg, image/webp"
@@ -214,6 +220,7 @@
 				<span>* {form?.errors.foto[0]}</span>
 			{/if}
 		</div>
+		-->
 
 		<div>
 			<Button text="Volver" to="/dashboard" />
