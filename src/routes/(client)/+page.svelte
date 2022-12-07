@@ -11,4 +11,20 @@
 	<meta name="description" content="Eventos de la Corporación Municipal de Deportes Quintero" />
 </svelte:head>
 
-<Eventos {eventos} />
+{#if eventos.length}
+	<Eventos {eventos} />
+{:else}
+	<section>
+		<h1>No hay eventos registrados</h1>
+	</section>
+{/if}
+
+<style scoped>
+	section {
+		@apply h-screen flex flex-col place-items-center justify-evenly text-center text-darkblue bg-lightsecondary;
+	}
+
+	h1 {
+		@apply font-bold text-5xl;
+	}
+</style>
