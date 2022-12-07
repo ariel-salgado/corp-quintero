@@ -107,7 +107,22 @@ export const dashboard = createRouter()
 		resolve: async ({ input }) => {
 			const query = prismaClient.evento.create({
 				data: {
-					...input
+					requisitos: input.requisitos,
+					nombre: input.nombre,
+					fecha_termino: input.fecha_termino,
+					direccion: input.direccion,
+					cupo: input.cupo,
+					tipo: input.tipo,
+					fecha_inicio: input.fecha_inicio,
+					hora_inicio: input.hora_inicio,
+					hora_termino: input.hora_termino,
+					descripcion: input.descripcion,
+					poleras: input.poleras,
+					categoria_evento: {
+						create: {
+							categoria: input.categoria
+						}
+					}
 				}
 			});
 
@@ -117,16 +132,38 @@ export const dashboard = createRouter()
 	.mutation(':update', {
 		input: UpsertEventoSchema.merge(z.object({ id: z.number() })),
 		resolve: async ({ input }) => {
-			const query = prismaClient.evento.update({
+			const query = await prismaClient.evento.update({
 				where: {
 					id: input.id
 				},
 				data: {
-					...input
+					requisitos: input.requisitos,
+					nombre: input.nombre,
+					fecha_termino: input.fecha_termino,
+					direccion: input.direccion,
+					cupo: input.cupo,
+					tipo: input.tipo,
+					fecha_inicio: input.fecha_inicio,
+					hora_inicio: input.hora_inicio,
+					hora_termino: input.hora_termino,
+					descripcion: input.descripcion,
+					poleras: input.poleras
 				}
 			});
 
-			return query;
+			const query2 = await prismaClient.categoria_evento.update({
+				where: {
+					id_evento_categoria: {
+						id_evento: input.id,
+						categoria: input.categoria
+					}
+				},
+				data: {
+					categoria: input.categoria
+				}
+			});
+
+			return query && query2;
 		}
 	})
 	.query(':edit-evento', {
@@ -149,7 +186,12 @@ export const dashboard = createRouter()
 					direccion: true,
 					descripcion: true,
 					requisitos: true,
-					poleras: true
+					poleras: true,
+					categoria_evento: {
+						select: {
+							categoria: true
+						}
+					}
 				}
 			});
 

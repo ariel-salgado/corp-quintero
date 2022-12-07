@@ -98,6 +98,19 @@
 		</div>
 
 		<div>
+			<Select
+				label="Categoría"
+				name="categoria"
+				ph="Seleccione la categoría del evento"
+				bind:value={evento.categoria_evento[0].categoria}
+				options={evento.categoria_evento.map((categoria) => categoria.categoria)}
+			/>
+			{#if form?.errors?.tipo}
+				<span>* {form?.errors.tipo[0]}</span>
+			{/if}
+		</div>
+
+		<div>
 			<Input
 				number
 				label="Cupo"

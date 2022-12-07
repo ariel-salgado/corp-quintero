@@ -57,6 +57,13 @@
 		</div>
 
 		<div>
+			<Input label="Categoría" name="categoria" ph="Ingrese categoría del evento" />
+			{#if form?.errors?.categoria}
+				<span>* {form?.errors.categoria[0]}</span>
+			{/if}
+		</div>
+
+		<div>
 			<Input number label="Cupo" name="cupo" ph="Ingrese cupo del evento" />
 			{#if form?.errors?.cupo}
 				<span>* {form?.errors.cupo[0]}</span>
