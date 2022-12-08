@@ -172,6 +172,10 @@
 		@apply w-full max-w-3xl flex flex-col gap-y-3 bg-lightsecondary rounded-lg shadow-lg p-6;
 	}
 
+	div {
+		@apply w-full;
+	}
+
 	form div:last-child {
 		@apply flex flex-col-reverse gap-y-4 md:flex-row md:gap-x-4 mt-4;
 	}

@@ -52,6 +52,6 @@
 	}
 
 	input {
-		@apply h-[34px] bg-lightsecondary text-darksecondary text-xs lg:text-sm rounded-lg border border-darkblue focus:outline-none p-2;
+		@apply h-[34px] w-full bg-lightsecondary text-darksecondary text-xs lg:text-sm rounded-lg border border-darkblue focus:outline-none p-2;
 	}
 </style>
