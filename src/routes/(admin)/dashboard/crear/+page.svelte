@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { applyAction, enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 	import type { ActionData } from './$types';
 	import { evento_tipo } from '@prisma/client';
 	import Input from '$lib/components/Input.svelte';
@@ -8,6 +10,12 @@
 	import Notification from '$lib/components/Notification.svelte';
 
 	export let form: ActionData;
+
+	let trigger = {};
+
+	function restart() {
+		trigger = {};
+	}
 </script>
 
 <svelte:head>
@@ -18,23 +26,34 @@
 	{#if form?.response !== undefined}
 		<aside>
 			{#if form?.response}
-				<Notification
-					success
-					openOn={true}
-					title="¡Evento creado!"
-					body="El evento ha sido creado correctamente. Ya puedes ver los detalles en la sección de eventos."
-				/>
+				{#key trigger}
+					<Notification
+						success
+						title="¡Evento creado!"
+						body="El evento ha sido creado correctamente. Ya puedes ver los detalles en la sección de eventos."
+					/>
+				{/key}
 			{:else}
-				<Notification
-					error
-					openOn={true}
-					title="¡Ups!"
-					body="Ha ocurrido un error al crear el evento. Intentalo nuevamente."
-				/>
+				{#key trigger}
+					<Notification
+						error
+						title="¡Ups!"
+						body="Ha ocurrido un error al crear el evento. Intentalo nuevamente."
+					/>
+				{/key}
 			{/if}
 		</aside>
 	{/if}
-	<form method="post">
+	<form
+		method="post"
+		use:enhance={() => {
+			return async ({ result }) => {
+				invalidateAll();
+				applyAction(result);
+				restart();
+			};
+		}}
+	>
 		<h1>Crear Evento</h1>
 
 		<div>

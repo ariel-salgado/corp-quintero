@@ -1,10 +1,18 @@
 <script lang="ts">
+	import { applyAction, enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 	import type { ActionData } from './$types';
 	import Button from '$lib/components/Button.svelte';
 	import Input from '$lib/components/Input.svelte';
 	import Notification from '$lib/components/Notification.svelte';
 
 	export let form: ActionData;
+
+	let trigger = {};
+
+	function restart() {
+		trigger = {};
+	}
 </script>
 
 <svelte:head>
@@ -16,23 +24,34 @@
 </aside>
 <section>
 	{#if form !== undefined}
-		<div>
+		<article>
 			{#if form?.credentials}
-				<Notification
-					error
-					openOn={true}
-					title="Lo sentimos"
-					body="Los datos ingresados no son válidos, vuelva a intentarlo"
-				/>
+				{#key trigger}
+					<Notification
+						error
+						title="Lo sentimos"
+						body="Los datos ingresados no son válidos, vuelva a intentarlo"
+					/>
+				{/key}
 			{/if}
-		</div>
+		</article>
 	{/if}
 
 	<a href="/">
 		<img src="corp_logo.webp" width="350" alt="Corporación Municipal de Deportes Quintero" />
 	</a>
 
-	<form action="?/login" method="post">
+	<form
+		action="?/login"
+		method="post"
+		use:enhance={() => {
+			return async ({ result }) => {
+				invalidateAll();
+				applyAction(result);
+				restart();
+			};
+		}}
+	>
 		<div>
 			<Input name="username" label="Usuario" ph="Ingrese Usuario" />
 			{#if form?.errors?.username}
@@ -65,7 +84,7 @@
 		@apply w-full grid place-items-center gap-10 p-10 lg:p-16;
 	}
 
-	section > div {
+	article {
 		@apply w-full;
 	}
 

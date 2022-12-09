@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { applyAction, enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 	import type { ActionData, PageData } from './$types';
 	import { evento_tipo } from '@prisma/client';
 	import Input from '$lib/components/Input.svelte';
@@ -10,6 +12,12 @@
 	export let form: ActionData;
 	export let data: PageData;
 	const { evento } = data;
+
+	let trigger = {};
+
+	function restart() {
+		trigger = {};
+	}
 
 	const [dia_inicio, mes_inicio, ano_inicio] = new Date(
 		new Date(
@@ -58,23 +66,34 @@
 	{#if form?.response !== undefined}
 		<aside>
 			{#if form?.response}
-				<Notification
-					success
-					openOn={true}
-					title="¡Evento actualizado!"
-					body="El evento ha sido actualizado correctamente. Ya puedes ver los detalles en la sección de eventos."
-				/>
+				{#key trigger}
+					<Notification
+						success
+						title="¡Evento actualizado!"
+						body="El evento ha sido actualizado correctamente. Ya puedes ver los detalles en la sección de eventos."
+					/>
+				{/key}
 			{:else}
-				<Notification
-					error
-					openOn={true}
-					title="¡Ups!"
-					body="Ha ocurrido un error al actualizar el evento. Intentalo nuevamente."
-				/>
+				{#key trigger}
+					<Notification
+						error
+						title="¡Ups!"
+						body="Ha ocurrido un error al actualizar el evento. Intentalo nuevamente."
+					/>
+				{/key}
 			{/if}
 		</aside>
 	{/if}
-	<form method="post">
+	<form
+		method="post"
+		use:enhance={() => {
+			return async ({ result }) => {
+				invalidateAll();
+				applyAction(result);
+				restart();
+			};
+		}}
+	>
 		<h1>Editar Evento</h1>
 
 		<div>

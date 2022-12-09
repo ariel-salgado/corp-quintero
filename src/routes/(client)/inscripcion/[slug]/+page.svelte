@@ -1,14 +1,22 @@
 <script lang="ts">
+	import { applyAction, enhance } from '$app/forms';
 	import type { PageData, ActionData } from './$types';
 	import { persona_sexo, persona_talla } from '@prisma/client';
 	import Input from '$lib/components/Input.svelte';
 	import Select from '$lib/components/Select.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Notification from '$lib/components/Notification.svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	export let data: PageData;
 	export let form: ActionData;
 	const { evento } = data;
+
+	let trigger = {};
+
+	function restart() {
+		trigger = {};
+	}
 </script>
 
 <svelte:head>
@@ -19,23 +27,30 @@
 	{#if form?.response !== undefined}
 		<aside>
 			{#if form?.response}
-				<Notification
-					success
-					openOn={true}
-					title="¡Gracias por inscribirte!"
-					body="Te hemos enviado un correo con los detalles de tu inscripción."
-				/>
+				{#key trigger}
+					<Notification
+						success
+						title="¡Gracias por inscribirte!"
+						body="Te hemos enviado un correo con los detalles de tu inscripción."
+					/>
+				{/key}
 			{:else}
-				<Notification
-					error
-					openOn={true}
-					title="¡Ups!"
-					body="Ha ocurrido un error al inscribirte."
-				/>
+				{#key trigger}
+					<Notification error title="¡Ups!" body="Ha ocurrido un error al inscribirte." />
+				{/key}
 			{/if}
 		</aside>
 	{/if}
-	<form method="post">
+	<form
+		method="post"
+		use:enhance={() => {
+			return async ({ result }) => {
+				invalidateAll();
+				applyAction(result);
+				restart();
+			};
+		}}
+	>
 		<h1>{`Inscripción ${evento.nombre}`}</h1>
 
 		<div>
