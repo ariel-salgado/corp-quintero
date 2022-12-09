@@ -32,7 +32,7 @@
 	{:else}
 		<img src={`/eventos/${evento?.id}.webp`} alt={evento?.nombre} />
 	{/if}
-	
+
 	<div>
 		<Badges categorias={evento?.categoria_evento} />
 		<h1>{evento?.nombre}</h1>
@@ -45,6 +45,8 @@
 		/>
 		<p>{@html evento?.descripcion}</p>
 		<p>{@html evento?.requisitos}</p>
+		<br />
+		<Button to={`/dashboard/editar/${evento.id}`} text="Editar" />
 		<br />
 		<Button to="/dashboard" text="Volver" />
 	</div>
