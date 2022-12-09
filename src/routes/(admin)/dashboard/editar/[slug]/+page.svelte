@@ -19,43 +19,42 @@
 		trigger = {};
 	}
 
-	const [dia_inicio, mes_inicio, ano_inicio] = new Date(
-		new Date(
-			new Date(evento.fecha_inicio).getTime() -
-				new Date(evento.fecha_inicio).getTimezoneOffset() * -60000
+	function convertDate(fecha: Date) {
+		const [dia, mes, ano] = new Date(
+			new Date(
+				new Date(evento.fecha_inicio).getTime() -
+					new Date(evento.fecha_inicio).getTimezoneOffset() * -60000
+			)
 		)
-	)
-		.toLocaleDateString('es-CL')
-		.split('-');
+			.toLocaleDateString('es-CL')
+			.split('-');
+		return [ano, mes, dia];
+	}
 
-	const [dia_termino, mes_termino, ano_termino] = new Date(
-		new Date(
-			new Date(evento.fecha_termino).getTime() -
-				new Date(evento.fecha_termino).getTimezoneOffset() * -60000
+	function convertTime(hora: Date, fecha: Date) {
+		const [horas, minutos] = new Date(
+			new Date(hora).getTime() - new Date(fecha).getTimezoneOffset() * -60000
 		)
-	)
-		.toLocaleDateString('es-CL')
-		.split('-');
+			.toLocaleTimeString('es-CL', {
+				hour: '2-digit',
+				minute: '2-digit'
+			})
+			.split(':');
+		return [horas, minutos];
+	}
 
-	const [hora_inicio, minuto_inicio] = new Date(
-		new Date(evento.hora_inicio).getTime() -
-			new Date(evento.fecha_inicio).getTimezoneOffset() * -60000
-	)
-		.toLocaleTimeString('es-CL', {
-			hour: '2-digit',
-			minute: '2-digit'
-		})
-		.split(':');
+	console.log(convertDate(evento.fecha_inicio));
 
-	const [hora_termino, minuto_termino] = new Date(
-		new Date(evento.hora_termino).getTime() -
-			new Date(evento.fecha_termino).getTimezoneOffset() * -60000
-	)
-		.toLocaleTimeString('es-CL', {
-			hour: '2-digit',
-			minute: '2-digit'
-		})
-		.split(':');
+	const [ano_inicio, mes_inicio, dia_inicio] = convertDate(evento.fecha_inicio);
+	const [ano_termino, mes_termino, dia_termino] = convertDate(evento.fecha_termino);
+
+	const [hora_inicio, minuto_inicio] = convertTime(evento.hora_inicio, evento.fecha_inicio);
+	const [hora_termino, minuto_termino] = convertTime(evento.hora_termino, evento.fecha_termino);
+
+	const categorias = evento.categoria_evento
+		.map((evento) => evento.categoria)
+		.toString()
+		.replace(',', ', ');
 </script>
 
 <svelte:head>
@@ -117,15 +116,14 @@
 		</div>
 
 		<div>
-			<Select
+			<Input
 				label="Categoría"
 				name="categoria"
-				ph="Seleccione la categoría del evento"
-				bind:value={evento.categoria_evento[0].categoria}
-				options={evento.categoria_evento.map((categoria) => categoria.categoria)}
+				ph="Ingrese categoría del evento"
+				value={categorias}
 			/>
-			{#if form?.errors?.tipo}
-				<span>* {form?.errors.tipo[0]}</span>
+			{#if form?.errors?.categoria}
+				<span>* {form?.errors.categoria[0]}</span>
 			{/if}
 		</div>
 
