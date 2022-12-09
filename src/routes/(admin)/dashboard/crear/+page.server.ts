@@ -7,7 +7,7 @@ export const actions: Actions = {
 	default: async ({ request, fetch }) => {
 		const data = await request.formData();
 		const formData = Object.fromEntries(data);
-		delete formData.foto;
+
 		try {
 			const parse = UpsertEventoSchema.parse(formData);
 			const result = await trpc(fetch).mutation('dashboard:create', parse);

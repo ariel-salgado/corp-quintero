@@ -1,6 +1,6 @@
 import type { Action, Actions, PageServerLoad } from './$types';
 import { invalid, redirect } from '@sveltejs/kit';
-import { LoginSchema } from '$src/utils/zod/validations';
+import { LoginSchemaParser } from '$src/utils/zod/validations';
 import { ZodError } from 'zod';
 import trpc from '$lib/trpc';
 
@@ -14,7 +14,7 @@ export const login: Action = async ({ cookies, request, fetch }) => {
 	const formData = Object.fromEntries(await request.formData());
 
 	try {
-		const parse = LoginSchema.parse(formData);
+		const parse = LoginSchemaParser.parse(formData);
 		const result = await trpc(fetch).query('log:in', parse);
 
 		if (!result) return invalid(400, { credentials: true });

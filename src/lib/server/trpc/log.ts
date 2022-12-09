@@ -1,6 +1,6 @@
 import { createRouter } from '$lib/server/createRouter';
 import prismaClient from '$lib/server/prismaClient';
-import { LoginSchema } from '$utils/zod/validations';
+import { LoginSchema } from '$utils/zod/schema';
 
 export const log = createRouter().query(':in', {
 	input: LoginSchema,

@@ -1,7 +1,7 @@
 import { createRouter } from '$lib/server/createRouter';
 import prismaClient from '$lib/server/prismaClient';
 import { z } from 'zod';
-import { InscriptionSchema } from '$utils/zod/validations';
+import { InscriptionSchema } from '$utils/zod/schema';
 
 export const eventos = createRouter()
 	.query(':all', {

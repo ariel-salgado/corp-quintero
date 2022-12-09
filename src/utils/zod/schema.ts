@@ -53,3 +53,44 @@ export const inscribe_eventoZod = z.object({
 	fecha: z.date(),
 	categoria: z.string()
 });
+
+export const LoginSchema = z.object({
+	username: z.string(),
+	password: z.string()
+});
+
+export const InscriptionSchema = z.object({
+	id: z.number(),
+	categoria: z.string(),
+	rut: z.string(),
+	nombres: z.string(),
+	apellidos: z.string(),
+	telefono_personal: z.number(),
+	telefono_contacto: z.number().nullish(),
+	correo: z.string().email(),
+	fecha_nacimiento: z.date(),
+	direccion: z.string(),
+	sexo: z.nativeEnum(persona_sexo),
+	talla: z.nativeEnum(persona_talla)
+});
+
+export const CreateEventoSchema = z.object({
+	nombre: z.string(),
+	tipo: z.nativeEnum(evento_tipo),
+	categoria: z.string(),
+	cupo: z.number(),
+	fecha_inicio: z.date(),
+	fecha_termino: z.date(),
+	hora_inicio: z.date(),
+	hora_termino: z.date(),
+	direccion: z.string(),
+	descripcion: z.string(),
+	requisitos: z.string(),
+	poleras: z.boolean()
+});
+
+export const UpdateEventoSchema = CreateEventoSchema.merge(
+	z.object({
+		id: z.number()
+	})
+);

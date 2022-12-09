@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { validaRut } from '$utils/validaRut';
 import { persona_sexo, persona_talla, evento_tipo } from '@prisma/client';
 
-export const LoginSchema = z.object({
+export const LoginSchemaParser = z.object({
 	username: z
 		.string({ required_error: 'Debe ingresar un usuario' })
 		.min(1, { message: 'Debe ingresar un usuario' })
@@ -15,7 +15,7 @@ export const LoginSchema = z.object({
 		.trim()
 });
 
-export const InscriptionSchema = z.object({
+export const InscriptionSchemaParser = z.object({
 	id: z.number({ required_error: 'Evento no encontrado' }),
 	categoria: z.string({ required_error: 'Debe seleccionar una categoría' }),
 	rut: z
@@ -88,7 +88,7 @@ export const InscriptionSchema = z.object({
 	talla: z.nativeEnum(persona_talla, { required_error: 'Debe seleccionar su talla' })
 });
 
-export const UpsertEventoSchema = z.object({
+export const CreateEventoSchemaParser = z.object({
 	nombre: z.string({ required_error: 'Debe ingresar un nombre' }).trim(),
 	tipo: z.nativeEnum(evento_tipo, { required_error: 'Debe seleccionar un tipo' }),
 	categoria: z.string({ required_error: 'Debe seleccionar una categoría' }),
@@ -147,3 +147,7 @@ export const UpsertEventoSchema = z.object({
 		.transform((val) => (val == 'on' ? true : false))
 		.or(z.boolean())
 });
+
+export const UpdateEventoSchemaParser = CreateEventoSchemaParser.merge(
+	z.object({ id: z.number() })
+);

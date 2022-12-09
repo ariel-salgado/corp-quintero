@@ -1,7 +1,7 @@
 import { createRouter } from '$lib/server/createRouter';
 import prismaClient from '$lib/server/prismaClient';
 import { z } from 'zod';
-import { UpsertEventoSchema } from '$utils/zod/validations';
+import { CreateEventoSchema, UpdateEventoSchema } from '$utils/zod/schema';
 
 export const dashboard = createRouter()
 	.query(':actives', {
@@ -103,7 +103,7 @@ export const dashboard = createRouter()
 		}
 	})
 	.mutation(':create', {
-		input: UpsertEventoSchema,
+		input: CreateEventoSchema,
 		resolve: async ({ input }) => {
 			const query = prismaClient.evento.create({
 				data: {
@@ -130,7 +130,7 @@ export const dashboard = createRouter()
 		}
 	})
 	.mutation(':update', {
-		input: UpsertEventoSchema.merge(z.object({ id: z.number() })),
+		input: UpdateEventoSchema,
 		resolve: async ({ input }) => {
 			const query = await prismaClient.evento.update({
 				where: {

@@ -1,5 +1,5 @@
 import type { Actions } from './$types';
-import { InscriptionSchema } from '$utils/zod/validations';
+import { InscriptionSchemaParser } from '$utils/zod/validations';
 import { ZodError } from 'zod';
 import trpc from '$lib/trpc';
 
@@ -9,7 +9,7 @@ export const actions: Actions = {
 		const query = Object.assign(formData, { id: Number(params.slug) });
 
 		try {
-			const parse = InscriptionSchema.parse(query);
+			const parse = InscriptionSchemaParser.parse(query);
 			const result = await trpc(fetch).mutation('eventos:inscription', parse);
 
 			if (!result)
