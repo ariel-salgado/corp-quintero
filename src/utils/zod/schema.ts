@@ -77,7 +77,7 @@ export const InscriptionSchema = z.object({
 export const CreateEventoSchema = z.object({
 	nombre: z.string(),
 	tipo: z.nativeEnum(evento_tipo),
-	categoria: z.string(),
+	categoria: z.string().array(),
 	cupo: z.number(),
 	fecha_inicio: z.date(),
 	fecha_termino: z.date(),
@@ -85,7 +85,7 @@ export const CreateEventoSchema = z.object({
 	hora_termino: z.date(),
 	direccion: z.string(),
 	descripcion: z.string(),
-	requisitos: z.string(),
+	requisitos: z.string().nullish(),
 	poleras: z.boolean()
 });
 

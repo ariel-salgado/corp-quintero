@@ -91,7 +91,11 @@ export const InscriptionSchemaParser = z.object({
 export const CreateEventoSchemaParser = z.object({
 	nombre: z.string({ required_error: 'Debe ingresar un nombre' }).trim(),
 	tipo: z.nativeEnum(evento_tipo, { required_error: 'Debe seleccionar un tipo' }),
-	categoria: z.string({ required_error: 'Debe seleccionar una categoría' }),
+	categoria: z.preprocess((arg) => {
+		if (typeof arg == 'string') {
+			return arg.split(',');
+		}
+	}, z.string().array().nonempty({ message: 'Debe seleccionar al menos una categoría' })),
 	cupo: z
 		.string({ required_error: 'Debe ingresar un cupo' })
 		.min(1, { message: 'Debe ingresar un cupo' })

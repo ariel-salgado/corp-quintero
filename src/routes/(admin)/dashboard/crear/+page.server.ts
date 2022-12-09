@@ -1,5 +1,5 @@
 import type { Actions } from './$types';
-import { UpsertEventoSchema } from '$utils/zod/validations';
+import { CreateEventoSchemaParser } from '$utils/zod/validations';
 import { ZodError } from 'zod';
 import trpc from '$lib/trpc';
 
@@ -9,7 +9,7 @@ export const actions: Actions = {
 		const formData = Object.fromEntries(data);
 
 		try {
-			const parse = UpsertEventoSchema.parse(formData);
+			const parse = CreateEventoSchemaParser.parse(formData);
 			const result = await trpc(fetch).mutation('dashboard:create', parse);
 
 			if (!result)

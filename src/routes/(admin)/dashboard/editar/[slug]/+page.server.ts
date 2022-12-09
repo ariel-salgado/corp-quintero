@@ -1,7 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { error } from '@sveltejs/kit';
-import { UpsertEventoSchema } from '$utils/zod/validations';
-import { z, ZodError } from 'zod';
+import { UpdateEventoSchemaParser } from '$utils/zod/validations';
+import { ZodError } from 'zod';
 import trpc from '$lib/trpc';
 
 export const load: PageServerLoad = async ({ params, fetch }) => {
@@ -24,7 +24,7 @@ export const actions: Actions = {
 		const formData = Object.fromEntries(data);
 		const query = Object.assign(formData, { id: Number(params.slug) });
 		try {
-			const parse = UpsertEventoSchema.merge(z.object({ id: z.number() })).parse(query);
+			const parse = UpdateEventoSchemaParser.parse(query);
 			const result = await trpc(fetch).mutation('dashboard:update', parse);
 
 			if (!result)
