@@ -1,4 +1,3 @@
-import type { inferAsyncReturnType } from '@trpc/server';
 import * as trpc from '@trpc/server';
 
 export async function createContext() {}

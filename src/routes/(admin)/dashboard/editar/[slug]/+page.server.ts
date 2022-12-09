@@ -1,10 +1,10 @@
-import type { PageLoad, Actions } from './$types';
+import type { PageServerLoad, Actions } from './$types';
 import { error } from '@sveltejs/kit';
 import { UpsertEventoSchema } from '$utils/zod/validations';
 import { z, ZodError } from 'zod';
 import trpc from '$lib/trpc';
 
-export const load: PageLoad = async ({ params, fetch }) => {
+export const load: PageServerLoad = async ({ params, fetch }) => {
 	if (!Number(params.slug)) throw error(404, 'Not Found');
 
 	const evento = await trpc(fetch).query('dashboard:edit-evento', { id: Number(params.slug) });
