@@ -9,7 +9,7 @@
 </main>
 <Footer />
 
-<style scoped>
+<style lang="postcss" scoped>
 	main {
 		@apply min-w-[375px];
 	}

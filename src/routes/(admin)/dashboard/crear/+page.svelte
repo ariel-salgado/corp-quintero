@@ -189,7 +189,7 @@
 	</form>
 </section>
 
-<style scoped>
+<style lang="postcss" scoped>
 	section {
 		@apply flex flex-col justify-center items-center p-6;
 	}

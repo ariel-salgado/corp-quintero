@@ -16,7 +16,7 @@
 </main>
 <Footer />
 
-<style scoped>
+<style lang="postcss" scoped>
 	main {
 		@apply h-screen flex flex-col place-items-center justify-evenly text-center text-darkblue bg-lightsecondary rounded-lg shadow-md gap-6 p-6 m-6;
 	}

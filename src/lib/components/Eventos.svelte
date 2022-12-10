@@ -11,7 +11,7 @@
 	{/each}
 </section>
 
-<style scoped>
+<style lang="postcss" scoped>
 	section {
 		@apply grid p-6 lg:py-12 lg:px-16 gap-y-8 lg:gap-y-12;
 	}

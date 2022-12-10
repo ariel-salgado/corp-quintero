@@ -17,7 +17,7 @@
 	</select>
 </div>
 
-<style scoped>
+<style lang="postcss" scoped>
 	div {
 		@apply w-full grid text-left;
 	}

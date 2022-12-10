@@ -30,7 +30,7 @@
 	</form>
 </nav>
 
-<style scoped>
+<style lang="postcss" scoped>
 	nav {
 		@apply w-full min-w-max flex justify-around place-items-center gap-8 px-4 py-2 bg-lightsecondary text-darkblue shadow;
 	}

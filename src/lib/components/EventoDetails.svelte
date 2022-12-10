@@ -58,7 +58,7 @@
 	</div>
 </picture>
 
-<style scoped>
+<style lang="postcss" scoped>
 	picture {
 		@apply flex flex-wrap gap-x-6 mb-4 justify-between md:justify-start;
 	}

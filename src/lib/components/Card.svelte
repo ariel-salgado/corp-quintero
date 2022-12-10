@@ -2,7 +2,7 @@
 	import type { evento } from '@prisma/client';
 	import Button from '$lib/components/Button.svelte';
 
-	export let evento: Partial<evento>;
+	export let evento: evento;
 </script>
 
 <article>
@@ -20,7 +20,7 @@
 	</div>
 </article>
 
-<style scoped>
+<style lang="postcss" scoped>
 	article {
 		@apply w-full min-w-[300px] flex flex-col md:flex-row bg-lightsecondary rounded-lg hover:scale-105 duration-300 shadow-lg hover:shadow-xl cursor-pointer;
 	}

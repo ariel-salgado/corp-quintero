@@ -41,7 +41,7 @@
 	</aside>
 </footer>
 
-<style scoped>
+<style lang="postcss" scoped>
 	h2 {
 		@apply font-bold uppercase mb-4 min-w-max;
 	}

@@ -71,7 +71,7 @@
 	</form>
 </section>
 
-<style scoped>
+<style lang="postcss" scoped>
 	aside {
 		@apply hidden lg:block w-full h-screen;
 	}

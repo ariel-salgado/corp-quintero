@@ -30,7 +30,7 @@
 	{/if}
 </section>
 
-<style scoped>
+<style lang="postcss" scoped>
 	section {
 		@apply relative w-full;
 	}

@@ -10,7 +10,7 @@
 	<button on:click={action}>{text}</button>
 {/if}
 
-<style scoped>
+<style lang="postcss" scoped>
 	button,
 	a {
 		@apply w-full min-w-max bg-darkblue hover:bg-lightblue text-lightsecondary text-center text-xs lg:text-sm font-bold uppercase rounded-lg py-3 px-4 cursor-pointer transition-all duration-300;

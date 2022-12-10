@@ -20,7 +20,7 @@
 		{:else}
 			<img src={`/eventos/${evento?.id}.webp`} alt={evento?.nombre} />
 		{/if}
-		
+
 		<div>
 			<Badges categorias={evento?.categoria_evento} />
 			<h1>{evento?.nombre}</h1>
@@ -43,7 +43,7 @@
 	</div>
 </section>
 
-<style scoped>
+<style lang="postcss" scoped>
 	section {
 		@apply p-6 lg:py-12 lg:px-16;
 	}

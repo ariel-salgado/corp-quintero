@@ -14,7 +14,7 @@
 	</div>
 {/if}
 
-<style scoped>
+<style lang="postcss" scoped>
 	div {
 		@apply flex flex-row gap-x-4;
 	}

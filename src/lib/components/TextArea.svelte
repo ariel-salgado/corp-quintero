@@ -11,7 +11,7 @@
 	<textarea on:input {name} placeholder={ph} bind:value cols="5" />
 </div>
 
-<style scoped>
+<style lang="postcss" scoped>
 	div {
 		@apply w-full grid text-left;
 	}

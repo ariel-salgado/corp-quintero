@@ -7,7 +7,7 @@
 	<slot />
 </main>
 
-<style scoped>
+<style lang="postcss" scoped>
 	main {
 		@apply h-screen min-w-full p-6;
 	}

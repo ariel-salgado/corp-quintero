@@ -19,7 +19,7 @@
 	</section>
 {/if}
 
-<style scoped>
+<style lang="postcss" scoped>
 	section {
 		@apply h-screen flex flex-col place-items-center justify-evenly text-center text-darkblue bg-lightsecondary;
 	}
