@@ -1,7 +1,7 @@
 import { createRouter } from '$lib/server/createRouter';
 import prismaClient from '$lib/server/prismaClient';
 import { z } from 'zod';
-import { InscriptionSchema } from '$utils/zod/schema';
+import { InscriptionSchemaParser } from '$src/utils/zod/validations';
 
 export const eventos = createRouter()
 	.query(':all', {
@@ -71,7 +71,7 @@ export const eventos = createRouter()
 		}
 	})
 	.mutation(':inscription', {
-		input: InscriptionSchema,
+		input: InscriptionSchemaParser,
 		resolve: async ({ input }) => {
 			input['telefono_contacto'] =
 				input['telefono_contacto'] === 0 ? null : input['telefono_contacto'];

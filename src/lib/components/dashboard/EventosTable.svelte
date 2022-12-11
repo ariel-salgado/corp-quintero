@@ -73,7 +73,12 @@
 			{#each filteredItems as item}
 				<TableBodyRow>
 					<TableBodyCell>{item?.nombre}</TableBodyCell>
-					<TableBodyCell>{new Date(item?.fecha_termino).toLocaleDateString()}</TableBodyCell>
+					<TableBodyCell
+						>{new Date(
+							new Date(item?.fecha_termino).getTime() -
+								new Date(item?.fecha_termino).getTimezoneOffset() * -60000
+						).toLocaleDateString('en-US')}</TableBodyCell
+					>
 					<TableBodyCell>{item?.direccion}</TableBodyCell>
 					<TableBodyCell>{item?.cupo}</TableBodyCell>
 					<TableBodyCell>{item?.cupos_disponibles}</TableBodyCell>
@@ -82,18 +87,20 @@
 							<a class="text-neutralgreen hover:text-lightgreen" href={`${baseUrl}/${item?.id}`}
 								>Ver</a
 							>
-							<a
-								class="text-neutralyellow hover:text-lightyellow"
-								href={`${baseUrl}/editar/${item?.id}`}>Editar</a
-							>
-							<button
-								class="text-neutralorange hover:text-lightorange"
-								on:click={() => {
-									defaultModal = true;
-									selectedName = item?.nombre;
-									selectedId = item?.id;
-								}}>Eliminar</button
-							>
+							{#if tableTitle === 'Eventos Activos'}
+								<a
+									class="text-neutralyellow hover:text-lightyellow"
+									href={`${baseUrl}/editar/${item?.id}`}>Editar</a
+								>
+								<button
+									class="text-neutralorange hover:text-lightorange"
+									on:click={() => {
+										defaultModal = true;
+										selectedName = item?.nombre;
+										selectedId = item?.id;
+									}}>Eliminar</button
+								>
+							{/if}
 						</div>
 					</TableBodyCell>
 				</TableBodyRow>

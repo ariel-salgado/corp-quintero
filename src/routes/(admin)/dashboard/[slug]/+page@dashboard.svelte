@@ -21,7 +21,13 @@
 
 	if (evento.poleras) cols = [...cols, 'Talla'];
 
-	const fecha_termino = new Date(evento!.fecha_termino);
+	const fecha_termino = new Date(
+		new Date(
+			new Date(evento.fecha_termino).getTime() -
+				new Date(evento.fecha_termino).getTimezoneOffset() * -60000
+		)
+	);
+
 	const hora_inicio = new Date(evento!.hora_inicio);
 	const hora_termino = new Date(evento!.hora_termino);
 </script>

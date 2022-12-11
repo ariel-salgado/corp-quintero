@@ -57,7 +57,12 @@
 					<TableBodyCell>{item?.rut}</TableBodyCell>
 					<TableBodyCell>{`${item?.nombres} ${item?.apellidos}`}</TableBodyCell>
 					<TableBodyCell>{item?.sexo}</TableBodyCell>
-					<TableBodyCell>{new Date(item?.fecha_nacimiento).toLocaleDateString()}</TableBodyCell>
+					<TableBodyCell
+						>{new Date(
+							new Date(item?.fecha_nacimiento).getTime() -
+								new Date(item?.fecha_nacimiento).getTimezoneOffset() * -60000
+						).toLocaleDateString('en-US')}</TableBodyCell
+					>
 					<TableBodyCell>{item?.telefono_personal}</TableBodyCell>
 					<TableBodyCell>{item?.telefono_contacto ? item.telefono_contacto : 'N/A'}</TableBodyCell>
 					<TableBodyCell>{item?.correo}</TableBodyCell>

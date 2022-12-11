@@ -68,7 +68,14 @@ export const InscriptionSchema = z.object({
 	telefono_personal: z.number(),
 	telefono_contacto: z.number().nullish(),
 	correo: z.string().email(),
-	fecha_nacimiento: z.date(),
+	fecha_nacimiento: z
+		.string()
+		.min(1, { message: 'Debe ingresar una fecha' })
+		.refine((val) => {
+			return !Number.isNaN(Date.parse(val));
+		}, 'Fecha inválida')
+		.transform((val) => new Date(val))
+		.or(z.date({ required_error: 'Debe ingresar una fecha' })),
 	direccion: z.string(),
 	sexo: z.nativeEnum(persona_sexo),
 	talla: z.nativeEnum(persona_talla)
@@ -79,10 +86,40 @@ export const CreateEventoSchema = z.object({
 	tipo: z.nativeEnum(evento_tipo),
 	categoria: z.string().array(),
 	cupo: z.number(),
-	fecha_inicio: z.date(),
-	fecha_termino: z.date(),
-	hora_inicio: z.date(),
-	hora_termino: z.date(),
+	fecha_inicio: z.preprocess((arg) => {
+		if (typeof arg == 'string' || arg instanceof Date) {
+			const date = new Date(arg);
+			return new Date(date.getTime() - date.getTimezoneOffset() * -60000);
+		}
+	}, z.date({ required_error: 'Debe ingresar una fecha de inicio' })),
+	fecha_termino: z.preprocess((arg) => {
+		if (typeof arg == 'string' || arg instanceof Date) {
+			const date = new Date(arg);
+			return new Date(date.getTime() - date.getTimezoneOffset() * -60000);
+		}
+	}, z.date({ required_error: 'Debe ingresar una fecha de término' })),
+	hora_inicio: z.preprocess((arg) => {
+		if (typeof arg === 'string' && arg.length === 5) {
+			const [hora, minutos] = arg.split(':');
+			return new Date(new Date().setHours(Number(hora), Number(minutos), 0, 0));
+		} else {
+			const date = new Date(arg as string);
+			return new Date(
+				new Date(arg as string).setHours(date.getHours() - 3, date.getMinutes(), 0, 0)
+			);
+		}
+	}, z.date({ required_error: 'Debe ingresar una hora de inicio' })),
+	hora_termino: z.preprocess((arg) => {
+		if (typeof arg === 'string' && arg.length === 5) {
+			const [hora, minutos] = arg.split(':');
+			return new Date(new Date().setHours(Number(hora), Number(minutos), 0, 0));
+		} else {
+			const date = new Date(arg as string);
+			return new Date(
+				new Date(arg as string).setHours(date.getHours() - 3, date.getMinutes(), 0, 0)
+			);
+		}
+	}, z.date({ required_error: 'Debe ingresar una hora de término' })),
 	direccion: z.string(),
 	descripcion: z.string(),
 	requisitos: z.string().nullish(),
