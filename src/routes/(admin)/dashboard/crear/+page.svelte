@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { applyAction, enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
 	import type { ActionData } from './$types';
 	import { evento_tipo } from '@prisma/client';
 	import Input from '$lib/components/Input.svelte';
@@ -44,16 +42,7 @@
 			{/if}
 		</aside>
 	{/if}
-	<form
-		method="post"
-		use:enhance={() => {
-			return async ({ result }) => {
-				invalidateAll();
-				applyAction(result);
-				restart();
-			};
-		}}
-	>
+	<form method="post">
 		<h1>Crear Evento</h1>
 
 		<div>

@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { applyAction, enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
 	import type { ActionData } from './$types';
 	import Button from '$lib/components/Button.svelte';
 	import Input from '$lib/components/Input.svelte';
@@ -44,13 +42,6 @@
 	<form
 		action="?/login"
 		method="post"
-		use:enhance={() => {
-			return async ({ result }) => {
-				invalidateAll();
-				applyAction(result);
-				restart();
-			};
-		}}
 	>
 		<div>
 			<Input name="username" label="Usuario" ph="Ingrese Usuario" />
